@@ -6,7 +6,7 @@ import { signupUser } from "../services/signupServices";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
   });
@@ -17,7 +17,7 @@ const Signup = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -42,9 +42,7 @@ const Signup = () => {
       loop: true,
       autoplay: true,
       animationData: loginAnimation,
-      rendererSettings: {
-        preserveAspectRatio: "xMidYMid slice",
-      },
+      rendererSettings: { preserveAspectRatio: "xMidYMid slice" },
     }),
     []
   );
@@ -52,93 +50,77 @@ const Signup = () => {
   return (
     <div className="relative w-full h-screen flex items-center justify-center bg-black overflow-hidden">
       <div className="absolute inset-0 w-full h-full z-0">
-        <Lottie
-          options={defaultOptions}
-          height={"100%"}
-          width={"100%"}
-          className="w-full h-full object-cover opacity-50"
-        />
+        <Lottie options={defaultOptions} height="100%" width="100%" className="w-full h-full object-cover opacity-50" />
       </div>
       <div className="absolute inset-0 bg-gradient-to-br from-black/70 to-blue-500/50"></div>
-      <div className="relative z-10 bg-gray-900/90 border border-gray-700 rounded-2xl shadow-2xl p-8 sm:p-12 w-full max-w-lg md:max-w-2xl">
-        <h2 className="text-2xl sm:text-4xl font-bold text-white text-center mb-6 sm:mb-8">
+      <div className="relative z-10 bg-gray-900/90 border border-gray-700 rounded-2xl shadow-2xl p-8 w-full max-w-lg">
+        <h2 className="text-2xl font-bold text-white text-center mb-6">
           {isModelOwner ? "Signup as Model Owner" : "Signup as Contributor"}
         </h2>
-        {error && (
-          <p className="text-red-500 text-md sm:text-lg mb-4 sm:mb-6 text-center">{error}</p>
-        )}
-        <div className="flex items-center justify-center mb-6 sm:mb-8">
+        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+        <div className="flex items-center justify-center mb-6">
           <button
             onClick={() => setIsModelOwner(true)}
-            className={`w-1/2 py-2 sm:py-3 text-sm sm:text-lg rounded-l-lg ${isModelOwner ? "bg-blue-600 text-white" : "bg-gray-700 text-gray-300"} transition-all duration-300`}
+            className={`w-1/2 py-2 rounded-l-lg ${isModelOwner ? "bg-blue-600 text-white" : "bg-gray-700 text-gray-300"}`}
           >
             Model Owner
           </button>
           <button
             onClick={() => setIsModelOwner(false)}
-            className={`w-1/2 py-2 sm:py-3 text-sm sm:text-lg rounded-r-lg ${!isModelOwner ? "bg-blue-600 text-white" : "bg-gray-700 text-gray-300"} transition-all duration-300`}
+            className={`w-1/2 py-2 rounded-r-lg ${!isModelOwner ? "bg-blue-600 text-white" : "bg-gray-700 text-gray-300"}`}
           >
             Contributor
           </button>
         </div>
-        <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="name" className="block text-sm sm:text-lg font-medium text-gray-300">
-              Name
-            </label>
+            <label htmlFor="username" className="block text-sm font-medium text-gray-300">Username</label>
             <input
               type="text"
-              name="name"
-              id="name"
-              value={formData.name}
+              name="username"
+              id="username"
+              value={formData.username}
               onChange={handleChange}
-              className="w-full mt-2 sm:mt-3 px-4 py-3 sm:px-5 sm:py-4 bg-gray-800 text-white rounded-lg text-sm sm:text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter your name"
+              className="w-full px-4 py-3 bg-gray-800 text-white rounded-lg focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter your username"
               required
             />
           </div>
           <div>
-            <label htmlFor="email" className="block text-sm sm:text-lg font-medium text-gray-300">
-              Email Address
-            </label>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-300">Email Address</label>
             <input
               type="email"
               name="email"
               id="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full mt-2 sm:mt-3 px-4 py-3 sm:px-5 sm:py-4 bg-gray-800 text-white rounded-lg text-sm sm:text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 bg-gray-800 text-white rounded-lg focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your email"
               required
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm sm:text-lg font-medium text-gray-300">
-              Password
-            </label>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-300">Password</label>
             <input
               type="password"
               name="password"
               id="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full mt-2 sm:mt-3 px-4 py-3 sm:px-5 sm:py-4 bg-gray-800 text-white rounded-lg text-sm sm:text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 bg-gray-800 text-white rounded-lg focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your password"
               required
             />
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 sm:py-4 px-5 sm:px-6 rounded-lg text-sm sm:text-lg shadow-lg transition-all duration-300"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg shadow-lg"
           >
             {isModelOwner ? "Sign Up as Model Owner" : "Sign Up as Contributor"}
           </button>
-          <div className="text-center mt-4 sm:mt-6">
-            <p className="text-gray-400 text-sm sm:text-lg">
-              Already have an account? {" "}
-              <a href="/login" className="text-blue-500 hover:underline transition duration-300">
-                Login
-              </a>
+          <div className="text-center mt-4">
+            <p className="text-gray-400 text-sm">
+              Already have an account? <a href="/login" className="text-blue-500 hover:underline">Login</a>
             </p>
           </div>
         </form>

@@ -16,12 +16,12 @@ const getMetaMaskAddress = async () => {
 };
 
 export const signupUser = async (formData) => {
-  const publicKey = await getMetaMaskAddress();
-  if (!publicKey) {
+  const public_address = await getMetaMaskAddress();
+  if (!public_address) {
     return { error: "MetaMask connection required" };
   }
 
-  const submissionData = { ...formData, publicKey };
+  const submissionData = { ...formData, public_address };
   console.log(submissionData)
 
   try {
