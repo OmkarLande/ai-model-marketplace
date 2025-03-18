@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from "react";
 import Lottie from "react-lottie";
 import { useNavigate } from "react-router-dom";
-import modelAnimation from "../assets/model.json";
 import { createModel } from "../services/createModelService";
 
 const CreateModel = () => {
@@ -37,21 +36,11 @@ const CreateModel = () => {
     }
   };
 
-  const defaultOptions = useMemo(
-    () => ({
-      loop: true,
-      autoplay: true,
-      animationData: modelAnimation,
-      rendererSettings: { preserveAspectRatio: "xMidYMid slice" },
-    }),
-    []
-  );
+
 
   return (
     <div className="relative w-full h-screen flex items-center justify-center bg-black overflow-hidden">
-      <div className="absolute inset-0 w-full h-full z-0">
-        <Lottie options={defaultOptions} height="100%" width="100%" className="w-full h-full object-cover opacity-50" />
-      </div>
+
       <div className="absolute inset-0 bg-gradient-to-br from-black/70 to-blue-500/50"></div>
       <div className="relative z-10 bg-gray-900/90 border border-gray-700 rounded-2xl shadow-2xl p-8 w-full max-w-lg">
         <h2 className="text-2xl font-bold text-white text-center mb-6">Create New Model</h2>

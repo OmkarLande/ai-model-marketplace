@@ -41,10 +41,10 @@ const Header = () => {
         {/* Navigation Links - Desktop */}
         <nav className="hidden lg:flex items-center space-x-8">
           <Link
-            to="/models"
+            to="/marketplace"
             className="text-gray-300 hover:text-blue-500 transition duration-300"
           >
-            Models
+            Market Place
           </Link>
           <Link
             to="/contact"
@@ -115,11 +115,11 @@ const Header = () => {
       >
         <nav className="flex flex-col items-center space-y-6 py-6">
           <Link
-            to="/models"
+            to="/marketplace"
             className="text-gray-300 hover:text-blue-500 transition duration-300 text-lg"
             onClick={() => setMenuOpen(false)}
           >
-            Models
+            Market Place
           </Link>
           <Link
             to="/contact"

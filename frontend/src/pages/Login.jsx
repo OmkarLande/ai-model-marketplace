@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import Lottie from "react-lottie";
 import { useNavigate } from "react-router-dom";
 import loginAnimation from "../assets/login.json";
-import { loginUser } from "../services/loginService";
+import { loginUser } from "../services/loginServices";
 
 const Login = () => {
   const [formData, setFormData] = useState({
