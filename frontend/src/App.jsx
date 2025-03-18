@@ -12,6 +12,7 @@ import ModelOwnerProfile from "./pages/ModelOwnerProfile";
 import ContributorProfile from "./pages/ContributorProfile";
 import CreateModel from "./pages/CreateModel";
 import ActiveContributors from "./pages/ActiveContributors";
+import OwnedModels from "./pages/OwnedModels";
 
 const App = () => {
   return (
@@ -21,16 +22,17 @@ const App = () => {
         <Header />
 
         {/* Page Routes */}
-        <Routes>
+        <Routes className="container mx-auto mt-20">
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/model/:id" element={<ModelDetails />} />
           <Route path="/ownerprofile" element={<ModelOwnerProfile />} />
-          <Route path='/create-model' element={<CreateModel />} />
+          <Route path="/create-model" element={<CreateModel />} />
           <Route path="/contributorprofile" element={<ContributorProfile />} />
           <Route path="/active-contributors" element={<ActiveContributors />} />
+          <Route path="/owned-models" element={<OwnedModels />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
       </div>

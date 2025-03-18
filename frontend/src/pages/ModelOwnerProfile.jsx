@@ -8,7 +8,7 @@ import Sidebar from "../components/SideBar";
 const menuItems = [
   { label: "Create Model", path: "/create-model" },
   { label: "Active Contributors", path: "/active-contributors" },
-  { label: "Manage Models", path: "/manage-models" },
+  { label: "Owned Models", path: "/owned-models" },
 ];
 
 const ModelOwnerProfile = () => {
