@@ -78,16 +78,46 @@ const login = async (req, res) => {
         
         console.log("token: ", token);
 
-        res.cookie("token", token, {
+        res.cookie("user_token", token, {
             httpOnly: true,
             // secure: process.env.NODE_ENV === "production",
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
         
-        res.status(200).json({ message: "Login successful", user: { user_id: user.user_id, role: user.role } });
+        res.status(200).json({ message: "Login successful",token: token, user: { user_id: user.user_id, role: user.role } });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
   };
 
-module.exports = { signup, login };
+const getUserById = async (req, res) => {
+    const { id } = req.params;
+
+    if (!id) {
+        return res.status(400).json({ error: "User ID is required" });
+    }
+
+    try {
+        const user = await prisma.user.findUnique({
+            where: { user_id: parseInt(id) },
+            select: {
+                user_id: true,
+                public_address: true,
+                username: true,
+                email: true,
+                role: true,
+                nonce: true,
+            },
+        });
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        res.status(200).json({ user });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+module.exports = { signup, login, getUserById };

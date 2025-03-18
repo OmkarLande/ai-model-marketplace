@@ -28,12 +28,13 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/model/:id" element={<ModelDetails />} />
-          <Route path="/ownerprofile" element={<ModelOwnerProfile />} />
+          <Route path="/model-owner-dashboard" element={<ModelOwnerProfile />} />
           <Route path="/create-model" element={<CreateModel />} />
           <Route path="/contributorprofile" element={<ContributorProfile />} />
           <Route path="/active-contributors" element={<ActiveContributors />} />
           <Route path="/owned-models" element={<OwnedModels />} />
           <Route path="/signup" element={<Signup />} />
+
         </Routes>
       </div>
     </Router>

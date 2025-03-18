@@ -37,7 +37,7 @@ const CreateModel = () => {
       setError(result.error);
     } else {
       console.log("Model Created Successfully:", result);
-      navigate("/dashboard");
+      navigate("/model-owner-dashboard");
     }
   };
 
