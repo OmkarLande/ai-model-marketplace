@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Sidebar from "../components/SideBar";
 import { createModel } from "../services/createModelService";
+
+// Sidebar menu items for model owner
+const menuItems = [
+  { label: "Create Model", path: "/create-model" },
+  { label: "Active Contributors", path: "/active-contributors" },
+  { label: "Manage Models", path: "/manage-models" },
+];
 
 const CreateModel = () => {
   const [formData, setFormData] = useState({
@@ -24,9 +32,7 @@ const CreateModel = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-
     const result = await createModel(formData);
-
     if (result.error) {
       setError(result.error);
     } else {
@@ -36,65 +42,47 @@ const CreateModel = () => {
   };
 
   return (
-    <div className="relative w-full min-h-screen flex items-center justify-center bg-black overflow-hidden">
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black/70 to-blue-500/50"></div>
+    <div className="flex min-h-screen bg-black text-white">
+      {/* Reusable Sidebar */}
+      <Sidebar menuItems={menuItems} heading="Dashboard" />
 
-      {/* Main Container */}
-      <div className="relative z-10 w-full max-w-4xl p-6 md:p-10 bg-gray-900/90 border border-gray-700 rounded-2xl shadow-2xl backdrop-blur-md">
-        <h2 className="text-3xl font-bold text-white text-center mb-8">
-          🚀 Create New Model
-        </h2>
-
-        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Input Fields */}
-            {Object.keys(formData).map((key) => (
-              <div key={key} className="w-full">
-                <label
-                  htmlFor={key}
-                  className="block text-sm font-medium text-gray-300 mb-2"
-                >
-                  {key.replace("_", " ").toUpperCase()}
-                </label>
-                <input
-                  type="text"
-                  name={key}
-                  id={key}
-                  value={formData[key]}
-                  onChange={handleChange}
-                  className="w-full px-5 py-3 bg-gray-800 text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                  placeholder={`Enter ${key.replace("_", " ")}`}
-                  required
-                />
-              </div>
-            ))}
-          </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-lg shadow-lg transition-all duration-300"
-          >
-            Create Model
-          </button>
-
-          {/* Navigation Link */}
-          <div className="text-center mt-6">
-            <p className="text-gray-400 text-sm">
-              View all models?{" "}
-              <a
-                href="/models"
-                className="text-blue-500 hover:underline transition duration-300"
+      {/* Main Content Section */}
+      <div className="flex-1 ml-64 p-10 bg-gradient-to-br from-gray-950 to-black min-h-screen">
+        <div className="w-full max-w-4xl mx-auto mt-12">
+          <div className="bg-gray-900/80 border border-gray-700 rounded-2xl shadow-xl p-10 backdrop-blur-md relative">
+            <h2 className="text-2xl font-bold text-white text-center mb-6">
+              Create New Model
+            </h2>
+            {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {Object.keys(formData).map((key) => (
+                <div key={key}>
+                  <label
+                    htmlFor={key}
+                    className="block text-sm font-medium text-gray-300"
+                  >
+                    {key.replace("_", " ").toUpperCase()}
+                  </label>
+                  <input
+                    type="text"
+                    name={key}
+                    id={key}
+                    value={formData[key]}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 bg-gray-800 text-white rounded-lg focus:ring-2 focus:ring-blue-500"
+                    placeholder={`Enter ${key.replace("_", " ")}`}
+                  />
+                </div>
+              ))}
+              <button
+                type="submit"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg shadow-lg"
               >
-                Go to Dashboard
-              </a>
-            </p>
+                Create Model
+              </button>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

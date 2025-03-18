@@ -11,6 +11,7 @@ import ModelDetails from "./pages/ModelDetails";
 import ModelOwnerProfile from "./pages/ModelOwnerProfile";
 import ContributorProfile from "./pages/ContributorProfile";
 import CreateModel from "./pages/CreateModel";
+import ActiveContributors from "./pages/ActiveContributors";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/ownerprofile" element={<ModelOwnerProfile />} />
           <Route path='/create-model' element={<CreateModel />} />
           <Route path="/contributorprofile" element={<ContributorProfile />} />
+          <Route path="/active-contributors" element={<ActiveContributors />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
       </div>
