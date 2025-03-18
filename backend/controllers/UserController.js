@@ -1,6 +1,8 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 
 const signup = async (req, res) => {
   const { public_address, username, email, password, role } = req.body;
@@ -48,4 +50,41 @@ const signup = async (req, res) => {
   }
 };
 
-module.exports = { signup };
+const login = async (req, res) => {
+    const { email, password } = req.body;
+  
+    if (!email || !password) {
+      return res.status(400).json({ error: "Email and password are required" });
+    }
+  
+    try {
+      const user = await prisma.user.findUnique({ where: { email } });
+  
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+  
+      const isPasswordValid = await bcrypt.compare(password, user.password_hash);
+      if (!isPasswordValid) {
+        return res.status(401).json({ error: "Invalid credentials" });
+      }
+  
+      const token = jwt.sign(
+        { user_id: user.user_id, role: user.role },
+        process.env.JWT_SECRET,
+        { expiresIn: "7d" }
+      );
+  
+      res.cookie("token", token, {
+        httpOnly: true,
+        // secure: process.env.NODE_ENV === "production",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      });
+  
+      res.status(200).json({ message: "Login successful", user: { user_id: user.user_id, role: user.role } });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+
+module.exports = { signup, login };
