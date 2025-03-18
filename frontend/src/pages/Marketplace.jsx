@@ -1,39 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { fetchModels } from "../services/marketplaceService"; // Import the service
 
 const Marketplace = () => {
   const navigate = useNavigate();
-
-  const [models, setModels] = useState([
-    {
-      id: 1,
-      name: "AI Image Enhancer",
-      description: "Enhance image resolution using deep learning models.",
-      price: "$10/month",
-      category: "Image Processing",
-    },
-    {
-      id: 2,
-      name: "Text Sentiment Analyzer",
-      description: "Analyze and predict sentiment from text data.",
-      price: "$15/month",
-      category: "NLP",
-    },
-    {
-      id: 3,
-      name: "Document Analyzer",
-      description: "Analyze documents and extract valuable insights with AI.",
-      price: "$12/month",
-      category: "Document Processing",
-    },
-    {
-      id: 4,
-      name: "Voice Recognition System",
-      description: "Identify and process voice inputs accurately.",
-      price: "$20/month",
-      category: "Speech AI",
-    },
-  ]);
+  const [models, setModels] = useState([]);
+  
+  useEffect(() => {
+    const loadModels = async () => {
+      const fetchedModels = await fetchModels();
+      setModels(fetchedModels);
+    };
+    
+    loadModels();
+  }, []);
 
   const bgColors = ["bg-blue-600/10", "bg-green-600/10", "bg-purple-600/10"];
 
@@ -50,34 +30,38 @@ const Marketplace = () => {
 
         {/* Model List in Horizontal Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
-          {models.map((model, index) => (
-            <div
-              key={model.id}
-              onClick={() => navigate(`/model/${model.id}`)}
-              className="relative group bg-gray-800 p-6 rounded-lg shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-2xl"
-            >
-              {/* Model Name */}
-              <h3 className="text-2xl font-bold text-white mb-2">
-                {model.name}
-              </h3>
-
-              {/* Model Description */}
-              <p className="text-gray-400 mb-4">{model.description}</p>
-
-              {/* Model Price & Category */}
-              <div className="flex justify-between items-center">
-                <p className="text-blue-400 font-semibold">{model.price}</p>
-                <p className="text-sm text-gray-500">{model.category}</p>
-              </div>
-
-              {/* Hover Effect Background */}
+          {models.length > 0 ? (
+            models.map((model, index) => (
               <div
-                className={`absolute inset-0 ${
-                  bgColors[index % bgColors.length]
-                } opacity-0 group-hover:opacity-100 transition duration-300 rounded-lg`}
-              ></div>
-            </div>
-          ))}
+                key={model.id}
+                onClick={() => navigate(`/model/${model.id}`)}
+                className="relative group bg-gray-800 p-6 rounded-lg shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-2xl"
+              >
+                {/* Model Name */}
+                <h3 className="text-2xl font-bold text-white mb-2">
+                  {model.name}
+                </h3>
+
+                {/* Model Description */}
+                <p className="text-gray-400 mb-4">{model.description}</p>
+
+                {/* Model Price & Category */}
+                <div className="flex justify-between items-center">
+                  <p className="text-blue-400 font-semibold">{model.price}</p>
+                  <p className="text-sm text-gray-500">{model.category}</p>
+                </div>
+
+                {/* Hover Effect Background */}
+                <div
+                  className={`absolute inset-0 ${
+                    bgColors[index % bgColors.length]
+                  } opacity-0 group-hover:opacity-100 transition duration-300 rounded-lg`}
+                ></div>
+              </div>
+            ))
+          ) : (
+            <p className="text-gray-400 text-center w-full">No models available.</p>
+          )}
         </div>
       </div>
     </div>
