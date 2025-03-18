@@ -43,7 +43,7 @@ const App = () => {
           <Route path="/create-model" element={<CreateModel />} />
           <Route path="/active-contributors" element={<ActiveContributors />} />
           <Route path="/owned-models" element={<OwnedModels />} />
-          <Route path="/contributorprofile" element={<ContributorProfile />} />
+          <Route path="/contributor-dashboard" element={<ContributorProfile />} />
           <Route path="/contribute-model" element={<ContributeToModel />} />
           <Route path='/previous-contributions' element={<PreviousContributions />} />
           <Route path='/active-contributions' element={<ActiveContributions />} />

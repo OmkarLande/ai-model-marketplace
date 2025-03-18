@@ -12,40 +12,52 @@ const signup = async (req, res) => {
   }
 
   try {
+    console.log("first")
     const existingUserByUsername = await prisma.user.findUnique({
-      where: { username },
+        where: { username },
     });
-
+    console.log("1")
+    
     if (existingUserByUsername) {
-      return res.status(400).json({ error: "Username is already taken" });
+        return res.status(400).json({ error: "Username is already taken" });
     }
-
+    console.log("12")
+    
     const existingUserByEmail = await prisma.user.findUnique({
-      where: { email },
+        where: { email },
     });
-
+    console.log("123")
+    
     if (existingUserByEmail) {
-      return res.status(400).json({ error: "Email is already registered" });
+        return res.status(400).json({ error: "Email is already registered" });
     }
-
+    console.log("1234")
+    
     if (role !== "model_owner" && role !== "contributor") {
         return res.status(400).json({ error: "Invalid role. Role must be 'model_owner' or 'contributor'" });
     }
-
+    console.log("2")
+    console.log("role: ", role);
+    
     const hashedPassword = await bcrypt.hash(password, 10);
-
+    
+    console.log("3")
     const newUser = await prisma.user.create({
-      data: {
-        public_address,
-        username,
-        email,
-        password_hash: hashedPassword,
-        nonce: Math.floor(Math.random() * 1000000).toString(),
-      },
+        data: {
+            public_address,
+            username,
+            email,
+            role,
+            password_hash: hashedPassword,
+            nonce: Math.floor(Math.random() * 1000000).toString(),
+        },
     });
-
+    console.log("4")
+    
     res.status(201).json({ message: "User registered successfully", user: newUser });
-  } catch (error) {
+    console.log("5")
+} catch (error) {
+      console.log("6")
     res.status(500).json({ error: error.message });
   }
 };
