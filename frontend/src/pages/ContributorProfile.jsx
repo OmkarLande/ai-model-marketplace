@@ -1,9 +1,22 @@
-import React, { useMemo } from "react";
+// src/pages/ContributorProfile.jsx
+import React, { useState, useMemo } from "react";
 import Lottie from "react-lottie";
 import Avatar from "boring-avatars";
-import profileAnimation from "../assets/profile.json"; // Import Lottie animation
+import Sidebar from "../components/SideBar";
+import profileAnimation from "../assets/profile.json";
+import { FaBars } from "react-icons/fa";
+
+// Sidebar menu items for contributors
+const menuItems = [
+  { label: "Contribute to Model", path: "/contribute-model" },
+  { label: "Previous Contributions", path: "/previous-contributions" },
+  { label: "Active Contributions", path: "/active-contributions" },
+];
 
 const ContributorProfile = () => {
+  // State to control sidebar visibility
+  const [showSidebar, setShowSidebar] = useState(false);
+
   // Dummy user data (replace with API data later)
   const user = {
     name: "Jane Smith",
@@ -26,30 +39,24 @@ const ContributorProfile = () => {
 
   return (
     <div className="flex min-h-screen bg-black text-white">
-      {/* Sidebar */}
-      <div className="w-64 bg-gradient-to-b from-gray-900 to-black border-r border-gray-700 p-6 fixed h-screen">
-        <h2 className="text-2xl font-bold mb-8 text-purple-400">Dashboard</h2>
-        <ul className="space-y-4">
-          <li>
-            <button className="w-full py-3 px-4 text-lg text-left bg-gray-800 hover:bg-purple-600 rounded-lg transition-all duration-300">
-              Task1
-            </button>
-          </li>
-          <li>
-            <button className="w-full py-3 px-4 text-lg text-left bg-gray-800 hover:bg-purple-600 rounded-lg transition-all duration-300">
-              Task2
-            </button>
-          </li>
-          <li>
-            <button className="w-full py-3 px-4 text-lg text-left bg-gray-800 hover:bg-purple-600 rounded-lg transition-all duration-300">
-              Task3
-            </button>
-          </li>
-        </ul>
-      </div>
+      {/* Sidebar for Desktop and Mobile */}
+      <Sidebar
+        menuItems={menuItems}
+        heading="Contributor Dashboard"
+        showSidebar={showSidebar}
+        setShowSidebar={setShowSidebar}
+      />
+
+      {/* Mobile Hamburger Button */}
+      <button
+        onClick={() => setShowSidebar(true)}
+        className="lg:hidden fixed top-4 left-4 z-50 bg-blue-600 text-white p-2 rounded-md shadow-md"
+      >
+        <FaBars size={24} />
+      </button>
 
       {/* Main Content Section */}
-      <div className="flex-1 ml-64 p-10 bg-gradient-to-br from-gray-950 to-black min-h-screen relative">
+      <div className="flex-1 lg:ml-64 p-6 md:p-10 bg-gradient-to-br from-gray-950 to-black min-h-screen relative">
         {/* Lottie Animation in the Background */}
         <div className="absolute inset-0 w-full h-full z-0 opacity-40">
           <Lottie
@@ -63,19 +70,19 @@ const ContributorProfile = () => {
         {/* Profile Card */}
         <div className="relative z-10 w-full max-w-4xl mx-auto mt-12">
           <div className="bg-gray-900/80 border border-gray-700 rounded-2xl shadow-xl p-10 backdrop-blur-md">
-            <div className="flex items-center space-x-6">
+            <div className="flex flex-col sm:flex-row items-center space-y-6 sm:space-y-0 sm:space-x-6">
               {/* Avatar */}
               <Avatar
                 size={100}
                 name={user.name}
-                variant="beam" // Options: "marble", "beam", "pixel", "sunset", "ring"
+                variant="beam"
                 colors={["#92A1C6", "#F0AB3D", "#C271B4", "#4E79A7", "#E15759"]}
               />
               {/* User Info */}
-              <div>
+              <div className="text-center sm:text-left">
                 <h3 className="text-3xl font-bold">{user.name}</h3>
                 <p className="text-gray-400">{user.email}</p>
-                <span className="text-sm bg-purple-600 text-white px-3 py-1 rounded-lg">
+                <span className="text-sm bg-purple-600 text-white px-3 py-1 rounded-lg mt-2 inline-block">
                   {user.role.replace("_", " ").toUpperCase()}
                 </span>
               </div>

@@ -11,7 +11,6 @@ const menuItems = [
   { label: "Active Contributors", path: "/active-contributors" },
   { label: "Owned Models", path: "/owned-models" },
 ];
-
 const OwnedModels = () => {
   // Dummy data for owned models (replace with API data later)
   const [models] = useState([
