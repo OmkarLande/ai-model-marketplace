@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/SideBar";
 import { createModel } from "../services/createModelService";
 
-// Sidebar menu items for model owner
 const menuItems = [
   { label: "Create Model", path: "/create-model" },
   { label: "Active Contributors", path: "/active-contributors" },
@@ -18,9 +17,9 @@ const CreateModel = () => {
     training_data_info: "",
     performance_metrics: "",
     license_type: "",
-    model_file_path: "",
   });
 
+  const [file, setFile] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -29,10 +28,24 @@ const CreateModel = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]); // Store the selected file
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-    const result = await createModel(formData);
+
+    const formDataToSend = new FormData();
+    Object.keys(formData).forEach((key) => {
+      formDataToSend.append(key, formData[key]);
+    });
+
+    if (file) {
+      formDataToSend.append("model_file", file); // Append the file
+    }
+
+    const result = await createModel(formDataToSend);
     if (result.error) {
       setError(result.error);
     } else {
@@ -43,10 +56,8 @@ const CreateModel = () => {
 
   return (
     <div className="flex min-h-screen bg-black text-white">
-      {/* Reusable Sidebar */}
       <Sidebar menuItems={menuItems} heading="Dashboard" />
 
-      {/* Main Content Section */}
       <div className="flex-1 ml-64 p-10 bg-gradient-to-br from-gray-950 to-black min-h-screen">
         <div className="w-full max-w-4xl mx-auto mt-12">
           <div className="bg-gray-900/80 border border-gray-700 rounded-2xl shadow-xl p-10 backdrop-blur-md relative">
@@ -74,6 +85,19 @@ const CreateModel = () => {
                   />
                 </div>
               ))}
+
+              {/* File Upload Input */}
+              <div>
+                <label className="block text-sm font-medium text-gray-300">
+                  Upload Model File
+                </label>
+                <input
+                  type="file"
+                  onChange={handleFileChange}
+                  className="w-full px-4 py-3 bg-gray-800 text-white rounded-lg focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
               <button
                 type="submit"
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg shadow-lg"

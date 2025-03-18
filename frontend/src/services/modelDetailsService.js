@@ -27,7 +27,7 @@ export const buyModel = async (id, price) => {
     const userAddress = accounts[0];
 
     const transactionParameters = {
-      to: "0xYourSmartContractAddressHere", // Replace with the seller's address or smart contract address
+      to: "0x5Ec8219ECa4fcdb7e8ce051501B00AA2f3E62e85", // Replace with the seller's address or smart contract address
       from: userAddress,
       value: price ? (BigInt(price) * BigInt(10 ** 18)).toString(16) : "0x0", // Convert price to Wei and hex format
     };
