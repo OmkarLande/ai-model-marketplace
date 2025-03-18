@@ -1,25 +1,25 @@
 const express = require("express");
 const cors = require("cors");
-const { Pool } = require("pg");
+const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
+const userRoutes = require("./routes/UserRoutes");
+const aiModelRoutes = require("./routes/AIModelRoutes");
+
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Allow frontend
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true, // Enable cookies/sessions if needed
+  })
+);
+
 app.use(express.json());
+app.use(cookieParser());
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false },
-});
-
-app.get("/", async (req, res) => {
-  try {
-    const result = await pool.query("SELECT NOW()");
-    res.json(result.rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Database error" });
-  }
-});
+app.use("/api/users", userRoutes);
+app.use("/api/models", aiModelRoutes);
 
 app.listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`));
