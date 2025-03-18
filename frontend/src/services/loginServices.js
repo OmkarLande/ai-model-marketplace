@@ -9,12 +9,14 @@ export const loginUser = async (formData) => {
       });
   
       if (!response.ok) {
-        throw new Error("Invalid credentials or role mismatch. Try again.");
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Invalid credentials or role mismatch. Try again.");
       }
   
-      return await response.json();
+      const data = await response.json();
+      localStorage.setItem("token", data.token); // Store JWT token in localStorage
+      return data;
     } catch (error) {
       throw new Error(error.message || "Something went wrong. Please try again.");
     }
   };
-  
