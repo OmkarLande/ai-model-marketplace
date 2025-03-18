@@ -33,7 +33,7 @@ const App = () => {
         <Header />
 
         {/* Page Routes */}
-        <Routes className="container mx-auto mt-20">
+        <Routes className="container mx-auto mt-20 " > 
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/login" element={<Login />} />

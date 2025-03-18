@@ -4,6 +4,7 @@ import Lottie from "react-lottie";
 import animationData from "../assets/lottieanim.json";
 import collaborationImage from "../assets/collaboration.png";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
+
 const Home = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const defaultOptions = {
@@ -14,6 +15,7 @@ const Home = () => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
+
   return (
     <div className="flex flex-col min-h-screen bg-black text-white w-full">
       <main className="flex-1 w-full">
@@ -27,14 +29,14 @@ const Home = () => {
             {/* Left Content */}
             <div className="max-w-2xl text-left ml-0 lg:ml-24">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">
-                Unlock Your Document&apos;s Potential with{" "}
-                <span className="text-blue-500">Excalibur</span>
+                Decentralized AI Model Marketplace with{" "}
+                <span className="text-blue-500">NFTs & Federated Learning</span>
               </h1>
               <p className="text-lg text-gray-300 max-w-xl mt-4">
-                Excalibur is your ultimate platform for organizing and accessing
-                a diverse collection of documents. Collaborate in real-time,
-                invite others, and leverage AI to summarize content
-                effortlessly.
+                Unlock a new era of AI model trading and decentralized training.
+                Excalibur enables the secure exchange of AI models as NFTs and
+                integrates federated learning to empower decentralized model
+                training.
               </p>
               <div className="flex gap-4 mt-6">
                 <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg text-lg shadow-lg">
@@ -59,31 +61,32 @@ const Home = () => {
             <div className="grid lg:grid-cols-2 gap-0 items-center">
               <div className="space-y-8">
                 <h2 className="text-3xl md:text-4xl font-bold leading-tight text-white">
-                  Collaborate Seamlessly with{" "}
-                  <span className="text-blue-500">Excalibur</span>
+                  Empower Decentralized AI{" "}
+                  <span className="text-blue-500">Collaboration</span>
                 </h2>
                 <p className="text-gray-400 text-lg">
-                  With Excalibur, you can edit documents in real-time, making
-                  teamwork effortless. Collaborate with your peers and enhance
-                  productivity like never before.
+                  Excalibur facilitates decentralized collaboration through AI
+                  model trading and federated learning. Connect with AI model
+                  creators and participate in secure training processes across
+                  the globe.
                 </p>
                 <div className="grid sm:grid-cols-2 gap-8">
                   <div>
                     <h3 className="text-xl font-semibold mb-2 text-blue-400">
-                      Teamwork Simplified
+                      Secure AI Model Trading
                     </h3>
                     <p className="text-gray-400">
-                      Invite others easily to join your projects and contribute
-                      their insights.
+                      Trade AI models securely as NFTs, ensuring transparent
+                      ownership and access rights.
                     </p>
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold mb-2 text-blue-400">
-                      Edit Together
+                      Federated Learning
                     </h3>
                     <p className="text-gray-400">
-                      Work collaboratively in real-time, ensuring everyone is on
-                      the same page.
+                      Enable decentralized model training across multiple nodes,
+                      enhancing privacy and data security.
                     </p>
                   </div>
                 </div>
@@ -91,13 +94,16 @@ const Home = () => {
               <div className="relative w-full h-[400px]">
                 <img
                   src={collaborationImage}
-                  alt="Real-time collaboration features"
+                  alt="AI model marketplace"
                   className="w-[1000px] h-[500px] lg:h-[600px] object-contain rounded-lg shadow-2xl"
                 />
               </div>
             </div>
           </div>
         </section>
+
+        {/* AI Models Section */}
+        
 
         {/* Key Features */}
         <section className="w-full py-12 md:py-24 lg:py-32 bg-black">
@@ -124,12 +130,10 @@ const Home = () => {
                     />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold text-white">
-                  Document Collaboration
-                </h3>
+                <h3 className="text-xl font-bold text-white">AI Model NFTs</h3>
                 <p className="text-gray-400">
-                  Work together in real-time with friends and colleagues on any
-                  type of document.
+                  Securely buy, sell, and trade AI models as NFTs in a
+                  decentralized marketplace.
                 </p>
               </div>
 
@@ -151,10 +155,12 @@ const Home = () => {
                     />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold text-white">Easy Invites</h3>
+                <h3 className="text-xl font-bold text-white">
+                  Federated Learning
+                </h3>
                 <p className="text-gray-400">
-                  Invite others to join and contribute to your documents with
-                  just a few clicks.
+                  Participate in decentralized model training across multiple
+                  devices, ensuring privacy and efficiency.
                 </p>
               </div>
 
@@ -177,11 +183,11 @@ const Home = () => {
                   </svg>
                 </div>
                 <h3 className="text-xl font-bold text-white">
-                  AI-Powered Summarizer
+                  Secure Transactions
                 </h3>
                 <p className="text-gray-400">
-                  Extract key points from long-form content quickly with our
-                  intelligent AI tool.
+                  All AI model trades are recorded on the blockchain, ensuring
+                  secure and transparent transactions.
                 </p>
               </div>
             </div>
@@ -189,6 +195,7 @@ const Home = () => {
         </section>
 
         {/* CTA Section */}
+
         <section className="py-24 bg-gray-900 w-full">
           <div className="max-w-4xl px-4 sm:px-6 lg:px-8 mx-auto w-full">
             {/* Section Title */}
