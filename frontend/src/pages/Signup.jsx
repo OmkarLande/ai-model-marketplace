@@ -26,7 +26,7 @@ const Signup = () => {
 
     const role = isModelOwner ? "model_owner" : "contributor";
     const formDataWithRole = { ...formData, role };
-
+    console.log("formDataWithRole:", formDataWithRole);
     const result = await signupUser(formDataWithRole);
 
     if (result.error) {

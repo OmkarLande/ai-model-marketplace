@@ -7,7 +7,15 @@ const userRoutes = require("./routes/UserRoutes");
 const aiModelRoutes = require("./routes/AIModelRoutes");
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Allow frontend
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true, // Enable cookies/sessions if needed
+  })
+);
+
 app.use(express.json());
 app.use(cookieParser());
 

@@ -25,13 +25,15 @@ export const signupUser = async (formData) => {
   console.log(submissionData)
 
   try {
-    const response = await fetch("http://localhost:5000/api/user/signup", {
+    const response = await fetch("http://localhost:5000/api/users/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(submissionData),
+      credentials: "include",
     });
+    console.log("first", response)
 
     if (!response.ok) {
       throw new Error("Signup failed. Please try again.");
