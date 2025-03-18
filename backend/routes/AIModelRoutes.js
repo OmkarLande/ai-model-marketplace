@@ -1,8 +1,9 @@
 const express = require("express");
-const { createModel } = require("../controllers/AIModelController");
+const { createModel, getAllAIModels } = require("../controllers/AIModelController");
 
 const router = express.Router();
 
 router.post("/create", createModel);
+router.get("/ai-models", getAllAIModels);
 
 module.exports = router;

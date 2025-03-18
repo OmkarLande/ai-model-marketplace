@@ -14,7 +14,9 @@ export const loginUser = async (formData) => {
       }
   
       const data = await response.json();
-      localStorage.setItem("token", data.token); // Store JWT token in localStorage
+      localStorage.setItem("token", data.token);
+      console.log("token details ", data.token) 
+        document.cookie = `token=${data.token}; path=/;`;
       return data;
     } catch (error) {
       throw new Error(error.message || "Something went wrong. Please try again.");
