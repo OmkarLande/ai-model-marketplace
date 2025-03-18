@@ -15,6 +15,8 @@
     "@tailwindcss/vite": "^4.0.14",
     "boring-avatars": "^1.11.2",
     "ethers": "^6.13.5",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
     "pinata-web3": "^0.5.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
