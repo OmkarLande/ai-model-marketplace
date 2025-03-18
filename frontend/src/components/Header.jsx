@@ -38,35 +38,48 @@ const Header = () => {
           Excalibur
         </Link>
 
-        {/* Navigation Links - Desktop */}
-        <nav className="hidden lg:flex items-center space-x-8">
-          <Link
-            to="/marketplace"
-            className="text-gray-300 hover:text-blue-500 transition duration-300"
-          >
-            Market Place
-          </Link>
-          <Link
-            to="/contact"
-            className="text-gray-300 hover:text-blue-500 transition duration-300"
-          >
-            Contact Us
-          </Link>
-          <Link
+          <nav className="hidden lg:flex items-center space-x-8">
+            <Link
+              to="/marketplace"
+              className="text-gray-300 hover:text-blue-500 transition duration-300"
+            >
+              Market Place
+            </Link>
+            <Link
+              to="/contact"
+              className="text-gray-300 hover:text-blue-500 transition duration-300"
+            >
+              Contact Us
+            </Link>
+            {localStorage.getItem("user_token") ? (
+              <button
+                onClick={() => {
+            localStorage.removeItem("user_token");
+            document.cookie = "user_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            window.location.reload();
+                }}
+                className="text-gray-300 hover:text-blue-500 transition duration-300"
+              >
+                Logout
+              </button>
+            ) : (
+              <>
+                <Link
             to="/login"
             className="text-gray-300 hover:text-blue-500 transition duration-300"
-          >
+                >
             Login
-          </Link>
-          <Link
+                </Link>
+                <Link
             to="/signup"
             className="text-gray-300 hover:text-blue-500 transition duration-300"
-          >
+                >
             Signup
-          </Link>
-        </nav>
+                </Link>
+              </>
+            )}
+          </nav>
 
-        {/* Mobile Menu Button */}
         <button
           className="lg:hidden block text-gray-300 focus:outline-none focus:text-blue-500"
           onClick={toggleMenu}
