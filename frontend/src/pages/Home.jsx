@@ -4,7 +4,6 @@ import Lottie from "react-lottie";
 import animationData from "../assets/lottieanim.json";
 import collaborationImage from "../assets/collaboration.png";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
-
 const Home = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const defaultOptions = {
@@ -15,14 +14,13 @@ const Home = () => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
-
   return (
     <div className="flex flex-col min-h-screen bg-black text-white w-full">
       <main className="flex-1 w-full">
         {/* Hero Section */}
         <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden m-0 p-0">
           {/* Overlay with Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-green-300"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-blue-300"></div>
 
           {/* Content on Top */}
           <div className="relative z-10 w-full h-full flex items-center justify-between px-8 lg:px-20">
@@ -30,7 +28,7 @@ const Home = () => {
             <div className="max-w-2xl text-left ml-0 lg:ml-24">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">
                 Unlock Your Document&apos;s Potential with{" "}
-                <span className="text-green-500">Excalibur</span>
+                <span className="text-blue-500">Excalibur</span>
               </h1>
               <p className="text-lg text-gray-300 max-w-xl mt-4">
                 Excalibur is your ultimate platform for organizing and accessing
@@ -39,7 +37,7 @@ const Home = () => {
                 effortlessly.
               </p>
               <div className="flex gap-4 mt-6">
-                <button className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg text-lg shadow-lg">
+                <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg text-lg shadow-lg">
                   Get Started
                 </button>
                 <button className="border border-gray-600 text-gray-300 hover:bg-gray-800 py-2 px-6 rounded-lg text-lg">
@@ -62,7 +60,7 @@ const Home = () => {
               <div className="space-y-8">
                 <h2 className="text-3xl md:text-4xl font-bold leading-tight text-white">
                   Collaborate Seamlessly with{" "}
-                  <span className="text-green-500">Excalibur</span>
+                  <span className="text-blue-500">Excalibur</span>
                 </h2>
                 <p className="text-gray-400 text-lg">
                   With Excalibur, you can edit documents in real-time, making
@@ -71,7 +69,7 @@ const Home = () => {
                 </p>
                 <div className="grid sm:grid-cols-2 gap-8">
                   <div>
-                    <h3 className="text-xl font-semibold mb-2 text-green-400">
+                    <h3 className="text-xl font-semibold mb-2 text-blue-400">
                       Teamwork Simplified
                     </h3>
                     <p className="text-gray-400">
@@ -80,7 +78,7 @@ const Home = () => {
                     </p>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2 text-green-400">
+                    <h3 className="text-xl font-semibold mb-2 text-blue-400">
                       Edit Together
                     </h3>
                     <p className="text-gray-400">
@@ -105,14 +103,14 @@ const Home = () => {
         <section className="w-full py-12 md:py-24 lg:py-32 bg-black">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12 text-white">
-              Key <span className="text-green-500">Features</span>
+              Key <span className="text-blue-500">Features</span>
             </h2>
             <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 justify-center">
               {/* Feature 1 */}
               <div className="flex flex-col items-center space-y-3 text-center">
-                <div className="p-3 rounded-full bg-green-900">
+                <div className="p-3 rounded-full bg-blue-900">
                   <svg
-                    className="h-6 w-6 text-green-500"
+                    className="h-6 w-6 text-blue-500"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -162,9 +160,9 @@ const Home = () => {
 
               {/* Feature 3 */}
               <div className="flex flex-col items-center space-y-3 text-center">
-                <div className="p-3 rounded-full bg-green-900">
+                <div className="p-3 rounded-full bg-purple-900">
                   <svg
-                    className="h-6 w-6 text-green-400"
+                    className="h-6 w-6 text-purple-400"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -193,6 +191,7 @@ const Home = () => {
         {/* CTA Section */}
         <section className="py-24 bg-gray-900 w-full">
           <div className="max-w-4xl px-4 sm:px-6 lg:px-8 mx-auto w-full">
+            {/* Section Title */}
             <div className="max-w-2xl mx-auto text-center space-y-6 mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-white">
                 Explore Our AI Models
@@ -205,7 +204,66 @@ const Home = () => {
 
             {/* Collapsible Models List */}
             <div className="relative bg-gray-800 rounded-lg shadow-lg overflow-hidden">
-              {/* Expand/Collapse Button */}
+              {/* Single Model Display Initially */}
+              <div className="p-6 cursor-pointer hover:bg-gray-700 rounded-lg transition duration-300">
+                <h3 className="text-xl font-bold text-white mb-2">
+                  AI Summarizer
+                </h3>
+                <p className="text-gray-400">
+                  Extract key points from lengthy documents quickly and
+                  efficiently.
+                </p>
+              </div>
+
+              {/* Collapsible Content */}
+              <div
+                id="models-list"
+                className={`transition-all duration-500 ease-in-out ${
+                  isExpanded ? "max-h-[300px] opacity-100" : "max-h-0 opacity-0"
+                } overflow-hidden`}
+              >
+                <div className="space-y-4 mt-4 max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-700 p-4">
+                  {/* Model 1 */}
+                  <div className="relative group bg-gray-800 p-6 rounded-lg shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+                    <h3 className="text-xl font-bold text-white mb-2">
+                      Real-time Editor
+                    </h3>
+                    <p className="text-gray-400 mb-4">
+                      Collaborate seamlessly with your team and make real-time
+                      changes.
+                    </p>
+                    <div className="absolute inset-0 bg-blue-600/10 opacity-0 group-hover:opacity-100 transition duration-300 rounded-lg"></div>
+                  </div>
+
+                  {/* Model 2 */}
+                  <div className="relative group bg-gray-800 p-6 rounded-lg shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+                    <h3 className="text-xl font-bold text-white mb-2">
+                      Document Analyzer
+                    </h3>
+                    <p className="text-gray-400 mb-4">
+                      Analyze documents and extract valuable insights with AI.
+                    </p>
+                    <div className="absolute inset-0 bg-green-600/10 opacity-0 group-hover:opacity-100 transition duration-300 rounded-lg"></div>
+                  </div>
+
+                  {/* Model 3 */}
+                  <div className="relative group bg-gray-800 p-6 rounded-lg shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+                    <h3 className="text-xl font-bold text-white mb-2">
+                      Smart Access Control
+                    </h3>
+                    <p className="text-gray-400 mb-4">
+                      Securely control document access with intelligent
+                      permissions.
+                    </p>
+                    <div className="absolute inset-0 bg-purple-600/10 opacity-0 group-hover:opacity-100 transition duration-300 rounded-lg"></div>
+                  </div>
+                  <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg text-lg shadow-lg transition-transform duration-300 transform hover:scale-105">
+                    <span>Explore More</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Expand/Collapse Button with Pull Effect */}
               <div
                 className={`flex justify-center transition-all duration-300 ${
                   isExpanded ? "mt-2 mb-2" : "mt-4"

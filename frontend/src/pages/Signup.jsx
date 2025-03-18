@@ -85,51 +85,53 @@ const Signup = () => {
         />
       </div>
 
-      {/* Gradient Overlay with Warm Yellow Theme */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-yellow-700 to-yellow-500 opacity-90"></div>
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black/70 to-blue-500/50"></div>
 
       {/* Signup Card */}
-      <div className="relative z-10 bg-gray-900/90 border border-yellow-600 rounded-2xl shadow-2xl p-12 w-full max-w-2xl">
-        <h2 className="text-4xl font-bold text-white text-center mb-8">
+      <div className="relative z-10 bg-gray-900/90 border border-gray-700 rounded-2xl shadow-2xl p-8 sm:p-12 w-full max-w-lg md:max-w-2xl">
+        <h2 className="text-2xl sm:text-4xl font-bold text-white text-center mb-6 sm:mb-8">
           {isModelOwner ? "Signup as Model Owner" : "Signup as Contributor"}
         </h2>
 
         {/* Show Error Message */}
         {error && (
-          <p className="text-red-500 text-lg mb-6 text-center">{error}</p>
+          <p className="text-red-500 text-md sm:text-lg mb-4 sm:mb-6 text-center">
+            {error}
+          </p>
         )}
 
         {/* Role Toggle Button */}
-        <div className="flex items-center justify-center mb-8">
+        <div className="flex items-center justify-center mb-6 sm:mb-8">
           <button
             onClick={() => setIsModelOwner(true)}
-            className={`w-1/2 py-2 rounded-l-lg transition-all duration-300 ${
+            className={`w-1/2 py-2 sm:py-3 text-sm sm:text-lg rounded-l-lg ${
               isModelOwner
-                ? "bg-yellow-500 text-white"
+                ? "bg-blue-600 text-white"
                 : "bg-gray-700 text-gray-300"
-            }`}
+            } transition-all duration-300`}
           >
             Model Owner
           </button>
           <button
             onClick={() => setIsModelOwner(false)}
-            className={`w-1/2 py-2 rounded-r-lg transition-all duration-300 ${
+            className={`w-1/2 py-2 sm:py-3 text-sm sm:text-lg rounded-r-lg ${
               !isModelOwner
-                ? "bg-yellow-500 text-white"
+                ? "bg-blue-600 text-white"
                 : "bg-gray-700 text-gray-300"
-            }`}
+            } transition-all duration-300`}
           >
             Contributor
           </button>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-8">
+        <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
           {/* Name Input */}
           <div>
             <label
               htmlFor="name"
-              className="block text-lg font-medium text-gray-300"
+              className="block text-sm sm:text-lg font-medium text-gray-300"
             >
               Name
             </label>
@@ -139,7 +141,7 @@ const Signup = () => {
               id="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full mt-3 px-5 py-4 bg-gray-800 text-white rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              className="w-full mt-2 sm:mt-3 px-4 py-3 sm:px-5 sm:py-4 bg-gray-800 text-white rounded-lg text-sm sm:text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your name"
               required
             />
@@ -149,7 +151,7 @@ const Signup = () => {
           <div>
             <label
               htmlFor="email"
-              className="block text-lg font-medium text-gray-300"
+              className="block text-sm sm:text-lg font-medium text-gray-300"
             >
               Email Address
             </label>
@@ -159,7 +161,7 @@ const Signup = () => {
               id="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full mt-3 px-5 py-4 bg-gray-800 text-white rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              className="w-full mt-2 sm:mt-3 px-4 py-3 sm:px-5 sm:py-4 bg-gray-800 text-white rounded-lg text-sm sm:text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your email"
               required
             />
@@ -169,7 +171,7 @@ const Signup = () => {
           <div>
             <label
               htmlFor="password"
-              className="block text-lg font-medium text-gray-300"
+              className="block text-sm sm:text-lg font-medium text-gray-300"
             >
               Password
             </label>
@@ -179,7 +181,7 @@ const Signup = () => {
               id="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full mt-3 px-5 py-4 bg-gray-800 text-white rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              className="w-full mt-2 sm:mt-3 px-4 py-3 sm:px-5 sm:py-4 bg-gray-800 text-white rounded-lg text-sm sm:text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your password"
               required
             />
@@ -188,18 +190,18 @@ const Signup = () => {
           {/* Signup Button */}
           <button
             type="submit"
-            className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-4 px-6 rounded-lg text-lg shadow-lg transition-all duration-300"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 sm:py-4 px-5 sm:px-6 rounded-lg text-sm sm:text-lg shadow-lg transition-all duration-300"
           >
             {isModelOwner ? "Sign Up as Model Owner" : "Sign Up as Contributor"}
           </button>
 
           {/* Additional Links */}
-          <div className="text-center mt-6">
-            <p className="text-gray-400 text-lg">
+          <div className="text-center mt-4 sm:mt-6">
+            <p className="text-gray-400 text-sm sm:text-lg">
               Already have an account?{" "}
               <a
                 href="/login"
-                className="text-yellow-400 hover:underline transition duration-300"
+                className="text-blue-500 hover:underline transition duration-300"
               >
                 Login
               </a>
