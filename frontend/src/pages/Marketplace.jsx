@@ -31,10 +31,12 @@ const Marketplace = () => {
         {/* Model List in Horizontal Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
           {models.length > 0 ? (
+            
             models.map((model, index) => (
+              
               <div
-                key={model.id}
-                onClick={() => navigate(`/model/${model.id}`)}
+                key={`${model.id}-${index}`}
+                onClick={() => navigate(`/model/${model.model_id}`)}
                 className="relative group bg-gray-800 p-6 rounded-lg shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-2xl"
               >
                 {/* Model Name */}
