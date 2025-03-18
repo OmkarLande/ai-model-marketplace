@@ -14,9 +14,9 @@ export const loginUser = async (formData) => {
       }
   
       const data = await response.json();
+      console.log("data", data);
       localStorage.setItem("user_token", data.token);
-      console.log("token details ", data.token) 
-        document.cookie = `token=${data.token}; path=/;`;
+      document.cookie = `user_token=${data.token}; path=/;`;
       return data;
     } catch (error) {
       throw new Error(error.message || "Something went wrong. Please try again.");

@@ -7,7 +7,7 @@ import { createModel } from "../services/createModelService";
 const menuItems = [
   { label: "Create Model", path: "/create-model" },
   { label: "Active Contributors", path: "/active-contributors" },
-  { label: "Manage Models", path: "/manage-models" },
+  { label: "Owned Models", path: "/owned-models" },
 ];
 
 const CreateModel = () => {
@@ -37,7 +37,7 @@ const CreateModel = () => {
       setError(result.error);
     } else {
       console.log("Model Created Successfully:", result);
-      navigate("/dashboard");
+      navigate("/model-owner-dashboard");
     }
   };
 
