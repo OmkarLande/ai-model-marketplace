@@ -11,7 +11,7 @@ const createModel = async (req, res) => {
     version,
     training_data_info,
     performance_metrics,
-    license_type,
+    license_type
   } = req.body;
   const token = req.headers.authorization?.split(" ")[1];
 
@@ -20,6 +20,9 @@ const createModel = async (req, res) => {
   }
 
   try {
+    console.log("Form Data:", req.body);
+    console.log("Uploaded File:", req.file);
+
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     // Check if the user is a model owner
@@ -35,19 +38,28 @@ const createModel = async (req, res) => {
       !description ||
       !version ||
       !training_data_info ||
-      !performance_metrics ||
-      !req.file
+      !performance_metrics
     ) {
       return res.status(400).json({ error: "All fields are required" });
     }
 
+    if (!req.file) {
+      return res.status(400).json({ error: "Model file is required" });
+    }
+
     const file = req.file;
-    const uploadResponse = await cloudinary.uploader.upload(file.path, {
-        resource_type: 'auto',
+    const uploadResponse = await cloudinary.uploader.upload(file.path)
+    .then((result) => {
+      return result;
+    })
+      .catch((err) => {
+        return res
+          .status(500)
+          .json({ error: "Cloudinary upload failed", details: err.message });
       });
-  
-      const model_file_path = uploadResponse.secure_url; 
-      console.log("cloudinary url ", model_file_path);
+
+    const model_file_path = uploadResponse.secure_url;
+    console.log("cloudinary url ", model_file_path);
 
     // Set optional fields to null if not provided
     const optionalFields = {
@@ -79,7 +91,7 @@ const getAllAIModels = async (req, res) => {
   try {
     const aiModels = await prisma.aI_Model.findMany({
       include: {
-        user: true, 
+        user: true,
       },
     });
     res.status(200).json(aiModels);
@@ -90,26 +102,25 @@ const getAllAIModels = async (req, res) => {
 };
 
 const getAIModelById = async (req, res) => {
-    const { id } = req.params;
-    
-    try {
-      const aiModel = await prisma.aI_Model.findUnique({
-        where: { model_id: parseInt(id) },
-        include: {
-          user: true, 
-        },
-      });
-  
-      if (!aiModel) {
-        return res.status(404).json({ error: 'AI model not found' });
-      }
-  
-      res.status(200).json(aiModel);
-    } catch (error) {
-      console.error('Error fetching AI model by ID:', error);
-      res.status(500).json({ error: 'Failed to fetch AI model by ID' });
+  const { id } = req.params;
+
+  try {
+    const aiModel = await prisma.aI_Model.findUnique({
+      where: { model_id: parseInt(id) },
+      include: {
+        user: true,
+      },
+    });
+
+    if (!aiModel) {
+      return res.status(404).json({ error: "AI model not found" });
     }
-  };
+
+    res.status(200).json(aiModel);
+  } catch (error) {
+    console.error("Error fetching AI model by ID:", error);
+    res.status(500).json({ error: "Failed to fetch AI model by ID" });
+  }
+};
 
 module.exports = { createModel, getAllAIModels, getAIModelById };
-
