@@ -1,4 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
+const cloudinary = require("../config/cloudinary");
 const jwt = require("jsonwebtoken");
 
 const prisma = new PrismaClient();
@@ -11,7 +12,6 @@ const createModel = async (req, res) => {
     training_data_info,
     performance_metrics,
     license_type,
-    model_file_path,
   } = req.body;
   const token = req.headers.authorization?.split(" ")[1];
 
@@ -35,10 +35,19 @@ const createModel = async (req, res) => {
       !description ||
       !version ||
       !training_data_info ||
-      !performance_metrics
+      !performance_metrics ||
+      !req.file
     ) {
       return res.status(400).json({ error: "All fields are required" });
     }
+
+    const file = req.file;
+    const uploadResponse = await cloudinary.uploader.upload(file.path, {
+        resource_type: 'auto',
+      });
+  
+      const model_file_path = uploadResponse.secure_url; 
+      console.log("cloudinary url ", model_file_path);
 
     // Set optional fields to null if not provided
     const optionalFields = {

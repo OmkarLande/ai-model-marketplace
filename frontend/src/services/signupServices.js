@@ -22,7 +22,7 @@ export const signupUser = async (formData) => {
   }
 
   const submissionData = { ...formData, public_address };
-  console.log(submissionData)
+  console.log("submissionData", submissionData);
 
   try {
     const response = await fetch("http://localhost:5000/api/users/signup", {
@@ -33,13 +33,15 @@ export const signupUser = async (formData) => {
       body: JSON.stringify(submissionData),
       credentials: "include",
     });
-    console.log("first", response)
+
+    const responseData = await response.json();
+    console.log("responseData", responseData);
 
     if (!response.ok) {
       throw new Error("Signup failed. Please try again.");
     }
 
-    return await response.json();
+    return responseData;
   } catch (error) {
     return { error: error.message || "Something went wrong. Please try again." };
   }

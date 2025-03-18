@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.14.1",
+    "@cloudinary/url-gen": "^1.21.0",
     "@heroicons/react": "^2.2.0",
     "@pinata/sdk": "^2.1.0",
     "@tailwindcss/vite": "^4.0.14",
@@ -18,6 +20,7 @@
     "framer-motion": "^12.5.0",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
+    "pinata": "^2.1.0",
     "pinata-web3": "^0.5.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

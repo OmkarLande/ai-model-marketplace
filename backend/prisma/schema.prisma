@@ -38,6 +38,7 @@ model AI_Model {
   training_data_info String?
   performance_metrics Json?
   license_type      String?
+  price             Float?
   model_file_path   String?
   created_at        DateTime @default(now())
   updated_at        DateTime @updatedAt
@@ -50,7 +51,7 @@ model Model_Contributor {
   id            Int       @id @default(autoincrement())
   user_id       Int
   model_id      Int
-  status        String    // "active" or "inactive"
+  status        String    @default("active")// "active" or "inactive"
   created_at    DateTime  @default(now())
   updated_at    DateTime  @updatedAt
 
