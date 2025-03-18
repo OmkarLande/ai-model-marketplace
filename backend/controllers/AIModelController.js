@@ -1,9 +1,9 @@
-import { PrismaClient } from "@prisma/client";
-import jwt from "jsonwebtoken";
+const { PrismaClient } = require("@prisma/client");
+const jwt = require("jsonwebtoken");
 
 const prisma = new PrismaClient();
 
-export const createModel = async (req, res) => {
+const createModel = async (req, res) => {
   const {
     model_name,
     description,
@@ -66,7 +66,7 @@ export const createModel = async (req, res) => {
   }
 };
 
-export const getAllAIModels = async (req, res) => {
+const getAllAIModels = async (req, res) => {
   try {
     const aiModels = await prisma.aI_Model.findMany({
       include: {
@@ -80,7 +80,7 @@ export const getAllAIModels = async (req, res) => {
   }
 };
 
-export const getAIModelById = async (req, res) => {
+const getAIModelById = async (req, res) => {
     const { id } = req.params;
     
     try {
@@ -101,4 +101,6 @@ export const getAIModelById = async (req, res) => {
       res.status(500).json({ error: 'Failed to fetch AI model by ID' });
     }
   };
+
+module.exports = { createModel, getAllAIModels, getAIModelById };
 

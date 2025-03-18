@@ -14,7 +14,7 @@ export const loginUser = async (formData) => {
       }
   
       const data = await response.json();
-      localStorage.setItem("token", data.token);
+      localStorage.setItem("user_token", data.token);
       console.log("token details ", data.token) 
         document.cookie = `token=${data.token}; path=/;`;
       return data;

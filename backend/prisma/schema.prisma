@@ -25,7 +25,8 @@ model User {
   created_at     DateTime  @default(now())
   updated_at     DateTime  @updatedAt
 
-  models         AI_Model[]
+  models            AI_Model[]
+  contributedModels Model_Contributor[]
 }
 
 model AI_Model {
@@ -42,4 +43,17 @@ model AI_Model {
   updated_at        DateTime @updatedAt
 
   user              User     @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+  contributors       Model_Contributor[]
+}
+
+model Model_Contributor {
+  id            Int       @id @default(autoincrement())
+  user_id       Int
+  model_id      Int
+  status        String    // "active" or "inactive"
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+
+  user          User      @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+  ai_model      AI_Model  @relation(fields: [model_id], references: [model_id], onDelete: Cascade)
 }
