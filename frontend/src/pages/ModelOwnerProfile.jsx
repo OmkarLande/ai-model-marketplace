@@ -1,9 +1,10 @@
-import React, { useMemo } from "react";
-import Lottie from "react-lottie";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import Avatar from "boring-avatars";
-import profileAnimation from "../assets/profile.json"; // Import Lottie animation
 
 const ModelOwnerProfile = () => {
+  const navigate = useNavigate();
+
   // Dummy user data (replace with API data later)
   const user = {
     name: "John Doe",
@@ -11,28 +12,19 @@ const ModelOwnerProfile = () => {
     role: "model_owner",
   };
 
-  // Memoized Lottie Options (Prevents Reinitialization)
-  const defaultOptions = useMemo(
-    () => ({
-      loop: true,
-      autoplay: true,
-      animationData: profileAnimation,
-      rendererSettings: {
-        preserveAspectRatio: "xMidYMid slice",
-      },
-    }),
-    []
-  );
-
   return (
     <div className="flex min-h-screen bg-black text-white">
       {/* Sidebar */}
       <div className="w-64 bg-gradient-to-b from-gray-900 to-black border-r border-gray-700 p-6 fixed h-screen">
-        <h2 className="text-2xl font-bold mb-8 text-blue-400 mt-12">Dashboard</h2>
+        <h2 className="text-2xl font-bold mb-8 text-blue-400">Dashboard</h2>
         <ul className="space-y-4">
           <li>
-            <button className="w-full py-3 px-4 text-lg text-left bg-gray-800 hover:bg-blue-600 rounded-lg transition-all duration-300">
-              Butt1
+            {/* Navigate to CreateModel */}
+            <button
+              onClick={() => navigate("/create-model")}
+              className="w-full py-3 px-4 text-lg text-left bg-gray-800 hover:bg-blue-600 rounded-lg transition-all duration-300"
+            >
+              Create Model
             </button>
           </li>
           <li>
@@ -49,26 +41,15 @@ const ModelOwnerProfile = () => {
       </div>
 
       {/* Main Content Section */}
-      <div className="flex-1 ml-64 p-10 bg-gradient-to-br from-gray-950 to-black min-h-screen relative">
-        {/* Lottie Animation in the Background */}
-        <div className="absolute inset-0 w-full h-full z-0 opacity-40">
-          <Lottie
-            options={defaultOptions}
-            height={"100%"}
-            width={"100%"}
-            className="w-full h-full object-cover"
-          />
-        </div>
-
-        {/* Profile Card */}
-        <div className="relative z-10 w-full max-w-4xl mx-auto mt-12">
-          <div className="bg-gray-900/80 border border-gray-700 rounded-2xl shadow-xl p-10 backdrop-blur-md">
+      <div className="flex-1 ml-64 p-10 bg-gradient-to-br from-gray-950 to-black min-h-screen">
+        <div className="w-full max-w-4xl mx-auto mt-12">
+          <div className="bg-gray-900/80 border border-gray-700 rounded-2xl shadow-xl p-10 backdrop-blur-md relative">
             <div className="flex items-center space-x-6">
               {/* Avatar */}
               <Avatar
                 size={100}
                 name={user.name}
-                variant="beam" // Options: "marble", "beam", "pixel", "sunset", "ring"
+                variant="beam"
                 colors={["#92A1C6", "#F0AB3D", "#C271B4", "#4E79A7", "#E15759"]}
               />
               {/* User Info */}
@@ -81,43 +62,12 @@ const ModelOwnerProfile = () => {
               </div>
             </div>
 
-            {/* Additional Info */}
             <div className="mt-8 space-y-4">
               <p className="text-lg text-gray-300">
                 Welcome back,{" "}
                 <span className="text-blue-400 font-semibold">{user.name}</span>
                 ! 🚀
               </p>
-              <p className="text-lg text-gray-300">
-                You can manage your models, analyze contributions, and monitor
-                updates.
-              </p>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="mt-8 flex space-x-4">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300">
-                Manage Models
-              </button>
-              <button className="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300">
-                View Reports
-              </button>
-            </div>
-          </div>
-
-          {/* Optional Additional Cards or Widgets */}
-          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="bg-gray-900/90 border border-gray-700 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition duration-300">
-              <h3 className="text-xl font-bold text-white mb-2">
-                Total Models
-              </h3>
-              <p className="text-3xl font-bold text-blue-400">12</p>
-            </div>
-            <div className="bg-gray-900/90 border border-gray-700 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition duration-300">
-              <h3 className="text-xl font-bold text-white mb-2">
-                Active Contributors
-              </h3>
-              <p className="text-3xl font-bold text-green-400">45</p>
             </div>
           </div>
         </div>

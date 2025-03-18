@@ -10,6 +10,7 @@ import Marketplace from "./pages/Marketplace";
 import ModelDetails from "./pages/ModelDetails";
 import ModelOwnerProfile from "./pages/ModelOwnerProfile";
 import ContributorProfile from "./pages/ContributorProfile";
+import CreateModel from "./pages/CreateModel";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/model/:id" element={<ModelDetails />} />
           <Route path="/ownerprofile" element={<ModelOwnerProfile />} />
+          <Route path='/create-model' element={<CreateModel />} />
           <Route path="/contributorprofile" element={<ContributorProfile />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>

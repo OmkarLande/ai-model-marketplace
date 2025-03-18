@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from "react";
 import Lottie from "react-lottie";
 import { useNavigate } from "react-router-dom";
-import modelAnimation from "../assets/model.json";
 import { createModel } from "../services/modelServices";
 
 const CreateModel = () => {
