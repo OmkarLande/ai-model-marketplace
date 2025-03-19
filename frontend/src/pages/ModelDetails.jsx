@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import {
   FaArrowLeft,
   FaTag,
@@ -15,6 +15,10 @@ import { motion } from "framer-motion";
 const ModelDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { price } = location.state || {};
+  console.log(price);
+
   const [model, setModel] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -60,20 +64,6 @@ const ModelDetails = () => {
           {model.model_name}
         </motion.h2>
 
-        {/* Model Thumbnail */}
-        {/* <motion.div
-          className="flex justify-center mb-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-          <img
-            src={model.thumbnail || "/default-thumbnail.png"}
-            alt="Model Thumbnail"
-            className="rounded-xl shadow-lg w-64 h-64 object-cover"
-          />
-        </motion.div> */}
-
         {/* Model Description */}
         <motion.p
           className="text-gray-300 text-lg text-center mb-8"
@@ -115,7 +105,6 @@ const ModelDetails = () => {
             ) : (
               <li className="text-gray-400">No features listed</li>
             )}
-
             <li className="text-gray-400">
               <strong>Performance Metrics:</strong>{" "}
               {model.performance_metrics || "Not available"}
@@ -209,7 +198,7 @@ const ModelDetails = () => {
             Back to Marketplace
           </motion.button>
           <motion.button
-            onClick={buyModel}
+            onClick={() => buyModel(price)}  // Fixed: wrap the call in a function
             className="bg-black hover:bg-gray-900 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-all duration-300"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}

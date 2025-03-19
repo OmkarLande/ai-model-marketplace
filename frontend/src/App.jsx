@@ -24,6 +24,7 @@ import ModelOwnerProfile from "./pages/ModelOwnerProfile";
 import CreateModel from "./pages/CreateModel";
 import ActiveContributors from "./pages/ActiveContributors";
 import OwnedModels from "./pages/OwnedModels";
+import AddContribution from "./pages/AddContribution";
 
 const App = () => {
   return (
@@ -48,6 +49,7 @@ const App = () => {
           <Route path='/previous-contributions' element={<PreviousContributions />} />
           <Route path='/active-contributions' element={<ActiveContributions />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/add-contribution/:id" element={<AddContribution />} />
 
         </Routes>
       </div>

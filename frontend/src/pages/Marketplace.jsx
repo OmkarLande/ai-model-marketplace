@@ -35,8 +35,10 @@ const Marketplace = () => {
             models.map((model, index) => (
               
               <div
-                key={`${model.id}-${index}`}
-                onClick={() => navigate(`/model/${model.model_id}`)}
+                key={`${model.model_id}-${index}`}
+                onClick={() => navigate(`/model/${model.model_id}`, { state: { price: model.price } })}
+
+
                 className="relative group bg-gray-800 p-6 rounded-lg shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-2xl"
               >
                 {/* Model Name */}

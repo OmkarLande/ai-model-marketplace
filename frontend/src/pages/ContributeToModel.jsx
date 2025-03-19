@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "../components/SideBar";
 import { FaBars } from "react-icons/fa";
 import { fetchModels } from "../services/contributeToModelService";
+import { useNavigate } from "react-router-dom";
 
 const menuItems = [
   { label: "Contribute to Model", path: "/contribute-model" },
@@ -14,14 +15,20 @@ const ContributeToModel = () => {
   const [models, setModels] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getModels = async () => {
       try {
-        const data = await fetchModels()
-        console.log(data)
+        const data = await fetchModels();
+        if (!data || data.length === 0) {
+          setError("No models available.");
+          return;
+        }
+        console.log("Fetched Models:", data);
         setModels(data);
       } catch (err) {
+        console.error("Error fetching models:", err);
         setError("Failed to load models. Please try again later.");
       } finally {
         setLoading(false);
@@ -39,12 +46,15 @@ const ContributeToModel = () => {
         setShowSidebar={setShowSidebar}
       />
 
-      <button
-        onClick={() => setShowSidebar(true)}
-        className="lg:hidden fixed top-4 left-4 z-50 bg-blue-600 text-white p-2 rounded-md shadow-md"
-      >
-        <FaBars size={24} />
-      </button>
+      {/* Mobile Sidebar Button */}
+      {!showSidebar && (
+        <button
+          onClick={() => setShowSidebar(true)}
+          className="lg:hidden fixed top-4 left-4 z-50 bg-blue-600 text-white p-2 rounded-md shadow-md"
+        >
+          <FaBars size={24} />
+        </button>
+      )}
 
       <div className="flex-1 lg:ml-64 p-6 md:p-10 bg-gradient-to-br from-gray-950 to-black min-h-screen">
         <div className="w-full max-w-6xl mx-auto">
@@ -58,14 +68,14 @@ const ContributeToModel = () => {
             </h3>
 
             {loading ? (
-              <p className="text-gray-400">Loading models...</p>
+              <p className="text-gray-400 text-center">Loading models...</p>
             ) : error ? (
-              <p className="text-red-500">{error}</p>
+              <p className="text-red-500 text-center">{error}</p>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {models.map((model) => (
                   <div
-                    key={model.id}
+                    key={model.model_id} // Fixed unique key warning
                     className="bg-gray-900/90 border border-gray-700 rounded-2xl shadow-lg p-6 transition-all duration-300 hover:scale-105 hover:shadow-xl"
                   >
                     <h3 className="text-2xl font-semibold text-white mb-4">
@@ -75,16 +85,16 @@ const ContributeToModel = () => {
 
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-blue-500 font-semibold">
-                        {model.price}
+                        {model.price || "Free"}
                       </span>
                       <span className="text-sm text-gray-400">
-                        {model.category}
+                        {model.category || "N/A"}
                       </span>
                     </div>
 
                     <button
                       onClick={() =>
-                        alert(`You chose to contribute to ${model.name}`)
+                        navigate(`/add-contribution/${model.model_id}`)
                       }
                       className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300"
                     >
