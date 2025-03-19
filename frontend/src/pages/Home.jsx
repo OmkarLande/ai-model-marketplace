@@ -6,6 +6,7 @@ import collaborationImage from "../assets/collaboration.png";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
 import modelOwnerImage from "../assets/ownerwork.png"; // Replace with actual image path
 import contributorImage from "../assets/workflow.png";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -206,9 +207,7 @@ const Home = () => {
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               {/* Left Column: Model Owner Details */}
               <div className="space-y-6">
-                <h3 className="text-2xl font-semibold text-white">
-                  Model Owner
-                </h3>
+                <h3 className="text-4xl font-bold text-white">Model Owner</h3>
                 <p className="text-lg text-gray-400">
                   The Model Owner is responsible for uploading AI models to the
                   marketplace, ensuring their accuracy and quality. They can
@@ -251,9 +250,7 @@ const Home = () => {
               </div>
               {/* Left Column: Contributor Details */}
               <div className="space-y-6">
-                <h3 className="text-2xl font-semibold text-white">
-                  Contributor
-                </h3>
+                <h3 className="text-4xl font-bold text-white">Contributor</h3>
                 <p className="text-lg text-gray-400">
                   Contributors are responsible for training models using
                   federated learning. They collaborate with Model Owners and
@@ -304,15 +301,18 @@ const Home = () => {
             {/* Collapsible Models List */}
             <div className="relative bg-gray-800 rounded-lg shadow-lg overflow-hidden">
               {/* Single Model Display Initially */}
-              <div className="p-6 cursor-pointer hover:bg-gray-700 rounded-lg transition duration-300">
-                <h3 className="text-xl font-bold text-white mb-2">
-                  AI Summarizer
-                </h3>
-                <p className="text-gray-400">
-                  Extract key points from lengthy documents quickly and
-                  efficiently.
-                </p>
-              </div>
+              <Link to="/model/13">
+                <div className="p-6 cursor-pointer hover:bg-gray-700 rounded-lg transition duration-300">
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    Image Recognition
+                  </h3>
+                  <p className="text-gray-400">
+                    A model trained to recognize and categorize various document
+                    types from images, including scanned documents, screenshots,
+                    and handwritten notes..
+                  </p>
+                </div>
+              </Link>
 
               {/* Collapsible Content */}
               <div
@@ -323,42 +323,50 @@ const Home = () => {
               >
                 <div className="space-y-4 mt-4 max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-700 p-4">
                   {/* Model 1 */}
-                  <div className="relative group bg-gray-800 p-6 rounded-lg shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                    <h3 className="text-xl font-bold text-white mb-2">
-                      Real-time Editor
-                    </h3>
-                    <p className="text-gray-400 mb-4">
-                      Collaborate seamlessly with your team and make real-time
-                      changes.
-                    </p>
-                    <div className="absolute inset-0 bg-blue-600/10 opacity-0 group-hover:opacity-100 transition duration-300 rounded-lg"></div>
-                  </div>
-
+                  <Link to="/model/14">
+                    <div className="relative group bg-gray-800 p-6 rounded-lg shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+                      <h3 className="text-xl font-bold text-white mb-2">
+                        Sentiment Analysis AI Model
+                      </h3>
+                      <p className="text-gray-400 mb-4">
+                        A model designed to analyze the sentiment of text data,
+                        classifying it into positive, negative, or neutral
+                        sentiments.
+                      </p>
+                      <div className="absolute inset-0 bg-blue-600/10 opacity-0 group-hover:opacity-100 transition duration-300 rounded-lg"></div>
+                    </div>
+                  </Link>
                   {/* Model 2 */}
-                  <div className="relative group bg-gray-800 p-6 rounded-lg shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                    <h3 className="text-xl font-bold text-white mb-2">
-                      Document Analyzer
-                    </h3>
-                    <p className="text-gray-400 mb-4">
-                      Analyze documents and extract valuable insights with AI.
-                    </p>
-                    <div className="absolute inset-0 bg-green-600/10 opacity-0 group-hover:opacity-100 transition duration-300 rounded-lg"></div>
-                  </div>
-
-                  {/* Model 3 */}
-                  <div className="relative group bg-gray-800 p-6 rounded-lg shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                    <h3 className="text-xl font-bold text-white mb-2">
-                      Smart Access Control
-                    </h3>
-                    <p className="text-gray-400 mb-4">
-                      Securely control document access with intelligent
-                      permissions.
-                    </p>
-                    <div className="absolute inset-0 bg-purple-600/10 opacity-0 group-hover:opacity-100 transition duration-300 rounded-lg"></div>
-                  </div>
-                  <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg text-lg shadow-lg transition-transform duration-300 transform hover:scale-105">
-                    <span>Explore More</span>
-                  </button>
+                  <Link to="/model/15">
+                    <div className="relative group bg-gray-800 p-6 rounded-lg shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+                      <h3 className="text-xl font-bold text-white mb-2">
+                        Speech Recognition AI Model
+                      </h3>
+                      <p className="text-gray-400 mb-4">
+                        A deep learning model for converting audio speech into
+                        text, supporting multiple languages and dialects.
+                      </p>
+                      <div className="absolute inset-0 bg-green-600/10 opacity-0 group-hover:opacity-100 transition duration-300 rounded-lg"></div>
+                    </div>
+                  </Link>
+                  <Link to="/model/17">
+                    <div className="relative group bg-gray-800 p-6 rounded-lg shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+                      <h3 className="text-xl font-bold text-white mb-2">
+                        Time Series Analysis AI Model
+                      </h3>
+                      <p className="text-gray-400 mb-4">
+                        A model designed for forecasting and analyzing
+                        time-series data, such as stock prices, weather data,
+                        and sales trends.
+                      </p>
+                      <div className="absolute inset-0 bg-purple-600/10 opacity-0 group-hover:opacity-100 transition duration-300 rounded-lg"></div>
+                    </div>
+                  </Link>
+                  <Link to="/marketplace">
+                    <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg text-lg shadow-lg transition-transform duration-300 transform hover:scale-105">
+                      <span>Explore More</span>
+                    </button>
+                  </Link>
                 </div>
               </div>
 

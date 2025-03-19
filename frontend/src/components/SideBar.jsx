@@ -10,9 +10,9 @@ const Sidebar = ({
   profileLink,
 }) => {
   return (
-    <>
+    <div >
       {/* Sidebar for Large Screens */}
-      <div className="hidden lg:block w-64 bg-gray-900 border-r border-gray-700 fixed h-screen p-6">
+      <div className="py-0 hidden lg:block w-64 bg-gray-900 border-r border-gray-700 fixed h-screen px-6">
         <h2 className="text-2xl font-bold mb-8 text-blue-400">
           {/* Dashboard heading as a clickable link */}
           <Link to={profileLink} className="hover:text-blue-500">
@@ -66,7 +66,7 @@ const Sidebar = ({
           </ul>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

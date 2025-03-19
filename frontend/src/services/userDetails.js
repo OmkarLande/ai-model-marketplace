@@ -11,13 +11,14 @@ const getUserDetails = async () => {
         // Decode the token to get userId
         const decodedToken = jwtDecode(token);
         console.log("token", decodedToken);
-        const userId = decodedToken?.userId;
+        const userId = decodedToken?.user_id;
         if (!userId) {
             throw new Error('Invalid token');
         }
+        console.log("userid", userId);
 
         // Fetch user details by userId
-        const response = await fetch(`http://localstorage:5000/api/users/${userId}`);
+        const response = await fetch(`http://localhost:5000/api/users/${userId}`);
         if (!response.ok) {
             throw new Error('Failed to fetch user details');
         }

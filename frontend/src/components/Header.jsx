@@ -11,21 +11,33 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-transparent z-50">
+    <header className="fixed top-0 left-0 w-full z-50 bg-gray-900">
       <div className="container mx-auto px-6 lg:px-12 py-4 flex justify-between items-center">
         {/* Logo Section with Image */}
         <Link to="/" className="flex items-center">
           <img
             src={logo} // The path to your logo image
             alt="AI Nexus Logo"
-            className="h-32 w-auto" // Adjust the size of your logo as needed
+            className="h-24 w-auto" // Adjust the size of your logo as needed
           />
         </Link>
 
-        <nav className="hidden lg:flex items-center space-x-8">
+        <div className="hidden lg:flex items-center lg:gap-8 lg:text-lg lg:font-bold">
+          <Link
+            to={
+              localStorage.getItem("user_token") &&
+              JSON.parse(atob(localStorage.getItem("user_token").split(".")[1])).role ===
+                "model_owner"
+                ? "/model-owner-dashboard"
+                : "/contributor-dashboard"
+            }
+            className="text-gray-300 hover:text-blue-500 transition duration-300"
+          >
+            Dashboard
+          </Link>
           <Link
             to="/marketplace"
-            className="text-gray-300 hover:text-blue-500 transition duration-300"
+            className="text-gray-300  hover:text-blue-500 transition duration-300"
           >
             Market Place
           </Link>
@@ -63,7 +75,7 @@ const Header = () => {
               </Link>
             </>
           )}
-        </nav>
+        </div>
 
         <button
           className="lg:hidden block text-gray-300 focus:outline-none focus:text-blue-500"
@@ -107,11 +119,11 @@ const Header = () => {
 
       {/* Mobile Menu - Opens on Toggle */}
       <div
-        className={`lg:hidden fixed top-16 left-0 w-full transition-all duration-300 ${
+        className={`lg:hidden fixed left-0 pt-0 w-full transition-all duration-300 ${
           menuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <nav className="flex flex-col items-center space-y-6 py-6">
+        <div className="flex flex-col items-center space-y-6 ">
           <Link
             to="/marketplace"
             className="text-gray-300 hover:text-blue-500 transition duration-300 text-lg"
@@ -140,7 +152,7 @@ const Header = () => {
           >
             Signup
           </Link>
-        </nav>
+        </div>
       </div>
     </header>
   );
