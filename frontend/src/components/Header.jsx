@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import logo from "../assets/logo.png"; // Adjust the path based on where your logo is located
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -27,58 +28,61 @@ const Header = () => {
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-gray-900 shadow-lg" // Background when scrolled
-          : "bg-transparent"
+        scrolled ? "bg-gray-900 shadow-lg " : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto px-6 lg:px-12 py-4 flex justify-between items-center">
-        {/* Logo Section */}
-        <Link to="/" className="text-3xl font-bold text-blue-500 tracking-wide">
-          Excalibur
+      <div className="container mx-auto px-6 lg:px-12 py-0 flex justify-between items-center">
+        {/* Logo Section with Image */}
+        <Link to="/" className="flex items-center">
+          <img
+            src={logo} // The path to your logo image
+            alt="AI Nexus Logo"
+            className="h-32 w-auto" // Adjust the size of your logo as needed
+          />
         </Link>
 
-          <nav className="hidden lg:flex items-center space-x-8">
-            <Link
-              to="/marketplace"
+        <nav className="hidden lg:flex items-center space-x-8">
+          <Link
+            to="/marketplace"
+            className="text-gray-300 hover:text-blue-500 transition duration-300"
+          >
+            Market Place
+          </Link>
+          <Link
+            to="/contact"
+            className="text-gray-300 hover:text-blue-500 transition duration-300"
+          >
+            Contact Us
+          </Link>
+          {localStorage.getItem("user_token") ? (
+            <button
+              onClick={() => {
+                localStorage.removeItem("user_token");
+                document.cookie =
+                  "user_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                window.location.reload();
+              }}
               className="text-gray-300 hover:text-blue-500 transition duration-300"
             >
-              Market Place
-            </Link>
-            <Link
-              to="/contact"
-              className="text-gray-300 hover:text-blue-500 transition duration-300"
-            >
-              Contact Us
-            </Link>
-            {localStorage.getItem("user_token") ? (
-              <button
-                onClick={() => {
-            localStorage.removeItem("user_token");
-            document.cookie = "user_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            window.location.reload();
-                }}
+              Logout
+            </button>
+          ) : (
+            <>
+              <Link
+                to="/login"
                 className="text-gray-300 hover:text-blue-500 transition duration-300"
               >
-                Logout
-              </button>
-            ) : (
-              <>
-                <Link
-            to="/login"
-            className="text-gray-300 hover:text-blue-500 transition duration-300"
-                >
-            Login
-                </Link>
-                <Link
-            to="/signup"
-            className="text-gray-300 hover:text-blue-500 transition duration-300"
-                >
-            Signup
-                </Link>
-              </>
-            )}
-          </nav>
+                Login
+              </Link>
+              <Link
+                to="/signup"
+                className="text-gray-300 hover:text-blue-500 transition duration-300"
+              >
+                Signup
+              </Link>
+            </>
+          )}
+        </nav>
 
         <button
           className="lg:hidden block text-gray-300 focus:outline-none focus:text-blue-500"

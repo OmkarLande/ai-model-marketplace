@@ -4,6 +4,8 @@ import Lottie from "react-lottie";
 import animationData from "../assets/lottieanim.json";
 import collaborationImage from "../assets/collaboration.png";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
+import modelOwnerImage from "../assets/ownerwork.png"; // Replace with actual image path
+import contributorImage from "../assets/workflow.png";
 
 const Home = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -34,7 +36,7 @@ const Home = () => {
               </h1>
               <p className="text-lg text-gray-300 max-w-xl mt-4">
                 Unlock a new era of AI model trading and decentralized training.
-                Excalibur enables the secure exchange of AI models as NFTs and
+                AI Nexus enables the secure exchange of AI models as NFTs and
                 integrates federated learning to empower decentralized model
                 training.
               </p>
@@ -65,7 +67,7 @@ const Home = () => {
                   <span className="text-blue-500">Collaboration</span>
                 </h2>
                 <p className="text-gray-400 text-lg">
-                  Excalibur facilitates decentralized collaboration through AI
+                  AI Nexus facilitates decentralized collaboration through AI
                   model trading and federated learning. Connect with AI model
                   creators and participate in secure training processes across
                   the globe.
@@ -103,7 +105,6 @@ const Home = () => {
         </section>
 
         {/* AI Models Section */}
-        
 
         {/* Key Features */}
         <section className="w-full py-12 md:py-24 lg:py-32 bg-black">
@@ -194,6 +195,97 @@ const Home = () => {
           </div>
         </section>
 
+        <section className="py-24 bg-gray-900 w-full">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12 text-white">
+              Model Owner & <span className="text-blue-500">Contributor</span>{" "}
+              Roles
+            </h2>
+
+            {/* Model Owner Section */}
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              {/* Left Column: Model Owner Details */}
+              <div className="space-y-6">
+                <h3 className="text-2xl font-semibold text-white">
+                  Model Owner
+                </h3>
+                <p className="text-lg text-gray-400">
+                  The Model Owner is responsible for uploading AI models to the
+                  marketplace, ensuring their accuracy and quality. They can
+                  manage the models, set licensing terms, and allow contributors
+                  to collaborate on federated learning.
+                </p>
+                <div className="text-gray-400">
+                  <h4 className="text-xl font-semibold">Workflow</h4>
+                  <ul className="list-disc ml-6 space-y-2">
+                    <li>Upload models to the marketplace as NFTs.</li>
+                    <li>
+                      Set permissions and licensing terms for contributors.
+                    </li>
+                    <li>Monitor model performance and updates.</li>
+                    <li>
+                      Enable federated learning for decentralized training.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Right Column: Model Owner Workflow Diagram */}
+              <div className="relative w-full h-[500px]">
+                <img
+                  src={modelOwnerImage}
+                  alt="Model Owner Workflow"
+                  className="w-full h-full object-contain rounded-lg "
+                />
+              </div>
+            </div>
+
+            {/* Contributor Section */}
+            <div className="grid lg:grid-cols-2 gap-12 items-center mt-24">
+              <div className="relative w-full h-[500px]">
+                <img
+                  src={contributorImage}
+                  alt="Contributor Workflow"
+                  className="w-full h-full object-contain rounded-lg "
+                />
+              </div>
+              {/* Left Column: Contributor Details */}
+              <div className="space-y-6">
+                <h3 className="text-2xl font-semibold text-white">
+                  Contributor
+                </h3>
+                <p className="text-lg text-gray-400">
+                  Contributors are responsible for training models using
+                  federated learning. They collaborate with Model Owners and
+                  enhance the AI models by training them on their local data,
+                  which can later be incorporated into the main model.
+                </p>
+                <div className="text-gray-400">
+                  <h4 className="text-xl font-semibold">Workflow</h4>
+                  <ul className="list-disc ml-6 space-y-2">
+                    <li>
+                      Download the model from the marketplace for federated
+                      learning.
+                    </li>
+                    <li>
+                      Train the model on local data while maintaining data
+                      privacy.
+                    </li>
+                    <li>
+                      Share the training results with the Model Owner for
+                      integration.
+                    </li>
+                    <li>
+                      Contribute improvements to the model for further updates.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Right Column: Contributor Workflow Diagram */}
+            </div>
+          </div>
+        </section>
         {/* CTA Section */}
 
         <section className="py-24 bg-gray-900 w-full">
@@ -299,7 +391,7 @@ const Home = () => {
         <div className="max-w-7xl px-4 py-6 sm:px-6 lg:px-8 mx-auto">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-sm text-gray-500">
-              © 2025 Excalibur. All rights reserved.
+              © 2025 AI Nexus. All rights reserved.
             </p>
             <div className="flex gap-6">
               <a href="#" className="text-sm text-gray-500 hover:text-white">
