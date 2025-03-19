@@ -12,7 +12,7 @@ const createModel = async (req, res) => {
     training_data_info,
     performance_metrics,
     license_type,
-    price
+    price,
   } = req.body;
   const token = req.headers.authorization?.split(" ")[1];
 
@@ -40,7 +40,7 @@ const createModel = async (req, res) => {
       !version ||
       !training_data_info ||
       !performance_metrics ||
-        !price
+      !price
     ) {
       return res.status(400).json({ error: "All fields are required" });
     }
@@ -50,10 +50,11 @@ const createModel = async (req, res) => {
     }
 
     const file = req.file;
-    const uploadResponse = await cloudinary.uploader.upload(file.path)
-    .then((result) => {
-      return result;
-    })
+    const uploadResponse = await cloudinary.uploader
+      .upload(file.path)
+      .then((result) => {
+        return result;
+      })
       .catch((err) => {
         return res
           .status(500)
@@ -126,4 +127,80 @@ const getAIModelById = async (req, res) => {
   }
 };
 
-module.exports = { createModel, getAllAIModels, getAIModelById };
+const getActiveContributors = async (req, res) => {
+  try {
+    // Fetch active contributors
+    const activeContributors = await prisma.model_Contributor.findMany({
+      where: {
+        status: "active", // Filter by active contributors
+      },
+      include: {
+        user: {
+          // Include user details
+          select: {
+            user_id: true,
+            username: true,
+            email: true,
+          },
+        },
+        ai_model: {
+          // Include model details
+          select: {
+            model_id: true,
+            model_name: true,
+          },
+        },
+      },
+    });
+
+    // Check if no active contributors were found
+    if (activeContributors.length === 0) {
+      return res.status(404).json({ error: "No active contributors found." });
+    }
+
+    // Respond with the active contributors data
+    return res.status(200).json(activeContributors);
+  } catch (error) {
+    // Handle errors and send error response
+    console.error("Error fetching active contributors:", error);
+    return res
+      .status(500)
+      .json({ error: "Internal server error. Please try again." });
+  }
+};
+
+const getOwnedModels = async (req, res) => {
+  try {
+    const { userId } = req.body; // Assuming the user ID is stored in req.user after verifying the token
+    if (!userId) {
+      return res.status(400).json({ error: "User ID is required." });
+    }
+
+    // Fetch models owned by the user
+    const ownedModels = await prisma.aI_Model.findMany({
+      where: { user_id: userId }, // Correct field is user_id
+      include: {
+        user: true, // Optionally, include user info if needed
+      },
+    });
+
+    if (ownedModels.length === 0) {
+      return res.status(404).json({ error: "No owned models found." });
+    }
+
+    return res.status(200).json(ownedModels); // Return the owned models to the client
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ error: "An error occurred while fetching owned models." });
+  }
+};
+
+module.exports = {
+  createModel,
+  getAllAIModels,
+  getAIModelById,
+  getActiveContributors,
+  getOwnedModels,
+};

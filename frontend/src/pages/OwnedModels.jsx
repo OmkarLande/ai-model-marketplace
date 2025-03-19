@@ -1,9 +1,10 @@
 // src/pages/OwnedModels.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaDatabase, FaCheckCircle, FaClock, FaBars } from "react-icons/fa";
 import Sidebar from "../components/SideBar";
 import StatCard from "../components/StatCard";
 import ModelCard from "../components/ModelCard";
+import { getOwnedModels } from "../services/getOwnedModel";
 
 // Sidebar menu items for model owner
 const menuItems = [
@@ -13,45 +14,31 @@ const menuItems = [
 ];
 const OwnedModels = () => {
   // Dummy data for owned models (replace with API data later)
-  const [models] = useState([
-    {
-      id: 1,
-      name: "Image Classification",
-      status: "Active",
-      createdAt: "2024-01-15",
-      contributors: 12,
-    },
-    {
-      id: 2,
-      name: "Fraud Detection",
-      status: "Inactive",
-      createdAt: "2023-12-20",
-      contributors: 8,
-    },
-    {
-      id: 3,
-      name: "Chatbot NLP",
-      status: "Active",
-      createdAt: "2024-02-10",
-      contributors: 15,
-    },
-    {
-      id: 4,
-      name: "Stock Price Predictor",
-      status: "Pending",
-      createdAt: "2024-03-01",
-      contributors: 6,
-    },
-  ]);
-
-  // Calculate stats
-  const totalModels = models.length;
-  const activeModels = models.filter(
+  const [models, setModels] = useState([]);
+  const [error, setError] = useState("");
+  let totalModels = 0;
+  let activeModels = models.filter(
     (model) => model.status === "Active"
   ).length;
-  const pendingModels = models.filter(
+  let pendingModels = models.filter(
     (model) => model.status === "Pending"
   ).length;
+  
+  useEffect(() => {
+    // Fetch owned models when the component mounts
+    const fetchModels = async () => {
+      const result = await getOwnedModels();
+      totalModels = result.length;
+      // Calculate stats
+      if (result.error) {
+        setError(result.error); // Set error if there was an issue
+      } else {
+        setModels(result); // Set owned models data
+      }
+    };
+
+    fetchModels();
+  }, []);
 
   // Mobile sidebar toggle
   const [showSidebar, setShowSidebar] = useState(false);
@@ -82,7 +69,7 @@ const OwnedModels = () => {
           </h2>
 
           {/* Stats Overview */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12">
+          {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12">
             <StatCard
               title="Total Models"
               value={totalModels}
@@ -98,17 +85,25 @@ const OwnedModels = () => {
               value={pendingModels}
               icon={<FaClock className="text-yellow-400" size={28} />}
             />
-          </div>
+          </div> */}
 
           {/* Models List */}
           <div className="bg-gray-900/80 border border-gray-700 rounded-2xl shadow-xl p-6 sm:p-8 backdrop-blur-md">
             <h3 className="text-2xl font-bold mb-6 text-white">
               Models List 📊
             </h3>
+            {/* Error message */}
+            {error && <p className="text-red-500">{error}</p>}
+
+            {/* Models grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {models.map((model) => (
-                <ModelCard key={model.id} model={model} />
-              ))}
+              {models.length > 0 ? (
+                models.map((model) => (
+                  <ModelCard key={model.model_id} model={model} /> // Pass the model data to the ModelCard
+                ))
+              ) : (
+                <p className="text-white">No models found.</p> // Display message if no models found
+              )}
             </div>
           </div>
         </div>

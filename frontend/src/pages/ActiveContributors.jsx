@@ -3,6 +3,7 @@ import { FaTasks, FaChartPie, FaClipboardList } from "react-icons/fa";
 import Sidebar from "../components/SideBar";
 import StatCard from "../components/StatCard";
 import ContributorCard from "../components/ContributorCard";
+import { getActiveContributors } from "../services/activeContributorsService";
 
 // Sidebar menu items for model owner
 const menuItems = [
@@ -12,37 +13,8 @@ const menuItems = [
 ];
 const ActiveContributors = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const [contributors] = useState([
-    {
-      id: 1,
-      name: "Alice Johnson",
-      email: "alice@example.com",
-      contributions: 45,
-      reviews: 5,
-    },
-    {
-      id: 2,
-      name: "Michael Smith",
-      email: "michael@example.com",
-      contributions: 30,
-      reviews: 12,
-    },
-    {
-      id: 3,
-      name: "Sophia Lee",
-      email: "sophia@example.com",
-      contributions: 55,
-      reviews: 8,
-    },
-    {
-      id: 4,
-      name: "David Brown",
-      email: "david@example.com",
-      contributions: 20,
-      reviews: 4,
-    },
-  ]);
+  const [contributors, setContributors] = useState([]);
+  const [error, setError] = useState("");
 
   const totalContributions = contributors.reduce(
     (acc, curr) => acc + curr.contributions,
@@ -57,6 +29,20 @@ const ActiveContributors = () => {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+  useEffect(() => {
+    // Fetch active contributors when the component mounts
+    const fetchContributors = async () => {
+      const result = await getActiveContributors();
+
+      if (result.error) {
+        setError(result.error); // Set error if there was an issue
+      } else {
+        setContributors(result); // Set contributors data
+      }
+    };
+
+    fetchContributors();
+  }, []);
 
   return (
     <div className="flex min-h-screen bg-black text-white">
@@ -96,7 +82,7 @@ const ActiveContributors = () => {
           </h2>
 
           {/* Stats Overview */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12">
+          {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12">
             <StatCard
               title="Total Contributions"
               value={totalContributions}
@@ -112,7 +98,7 @@ const ActiveContributors = () => {
               value={contributors.length}
               icon={<FaChartPie className="text-green-400" size={28} />}
             />
-          </div>
+          </div> */}
 
           {/* Contributor List */}
           <div className="bg-gray-900/80 border border-gray-700 rounded-2xl shadow-xl p-6 sm:p-8 backdrop-blur-md">
@@ -120,12 +106,26 @@ const ActiveContributors = () => {
               Contributors List 🧑‍💻
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {contributors.map((contributor) => (
-                <ContributorCard
-                  key={contributor.id}
-                  contributor={contributor}
-                />
-              ))}
+              <div>
+                {contributors.length > 0 ? (
+                  <ul>
+                    {contributors.map((contributor) => (
+                      <li
+                        key={contributor.id}
+                        className="mb-4 p-4 bg-gray-800 rounded-lg"
+                      >
+                        <p className="font-semibold">
+                          {contributor.user.username}
+                        </p>
+                        <p>Email: {contributor.user.email}</p>
+                        <p>Model: {contributor.ai_model.model_name}</p>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No active contributors found.</p>
+                )}
+              </div>
             </div>
           </div>
         </div>
