@@ -10,9 +10,10 @@ const menuItems = [
   { label: "Active Contributors", path: "/active-contributors" },
   { label: "Owned Models", path: "/owned-models" },
 ];
+
 const ActiveContributors = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
+  
   const [contributors] = useState([
     {
       id: 1,
@@ -43,7 +44,7 @@ const ActiveContributors = () => {
       reviews: 4,
     },
   ]);
-
+  
   const totalContributions = contributors.reduce(
     (acc, curr) => acc + curr.contributions,
     0
@@ -58,18 +59,29 @@ const ActiveContributors = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  // Define the profile link
+  const profileLink = "/model-owner-dashboard"; // You can dynamically set this based on the logged-in user
+
   return (
     <div className="flex min-h-screen bg-black text-white">
       {/* Sidebar for Large Screens */}
       <div className="hidden lg:block">
-        <Sidebar menuItems={menuItems} heading="Dashboard" />
+        <Sidebar
+          menuItems={menuItems}
+          heading="Dashboard"
+          profileLink={profileLink} // Passing the profile link as a prop
+        />
       </div>
 
       {/* Sidebar for Mobile (Slide-In Drawer) */}
       {isSidebarOpen && (
         <div className="lg:hidden fixed inset-0 z-50 bg-black/70">
           <div className="w-64 bg-gray-900 p-6 h-full shadow-lg">
-            <Sidebar menuItems={menuItems} heading="Dashboard" />
+            <Sidebar
+              menuItems={menuItems}
+              heading="Dashboard"
+              profileLink={profileLink} // Passing the profile link as a prop
+            />
             <button
               onClick={toggleSidebar}
               className="text-white mt-4 text-sm underline"

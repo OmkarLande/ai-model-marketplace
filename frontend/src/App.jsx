@@ -1,4 +1,3 @@
-// src/App.jsx
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
@@ -28,28 +27,46 @@ import OwnedModels from "./pages/OwnedModels";
 const App = () => {
   return (
     <Router>
-      <div className="bg-gray-900 min-h-screen">
+      <div className="bg-black min-h-screen">
         {/* Header Component */}
         <Header />
 
         {/* Page Routes */}
-        <Routes className="container mx-auto mt-20 " > 
-          <Route path="/" element={<Home />} />
-          <Route path="/contact" element={<ContactUs />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/marketplace" element={<Marketplace />} />
-          <Route path="/model/:id" element={<ModelDetails />} />
-          <Route path="/model-owner-dashboard" element={<ModelOwnerProfile />} />
-          <Route path="/create-model" element={<CreateModel />} />
-          <Route path="/active-contributors" element={<ActiveContributors />} />
-          <Route path="/owned-models" element={<OwnedModels />} />
-          <Route path="/contributor-dashboard" element={<ContributorProfile />} />
-          <Route path="/contribute-model" element={<ContributeToModel />} />
-          <Route path='/previous-contributions' element={<PreviousContributions />} />
-          <Route path='/active-contributions' element={<ActiveContributions />} />
-          <Route path="/signup" element={<Signup />} />
-
-        </Routes>
+        <div className="pt-32 ">
+          {" "}
+          {/* Add padding here to avoid overlap */}
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/contact" element={<ContactUs />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/marketplace" element={<Marketplace />} />
+            <Route path="/model/:id" element={<ModelDetails />} />
+            <Route
+              path="/model-owner-dashboard"
+              element={<ModelOwnerProfile />}
+            />
+            <Route path="/create-model" element={<CreateModel />} />
+            <Route
+              path="/active-contributors"
+              element={<ActiveContributors />}
+            />
+            <Route path="/owned-models" element={<OwnedModels />} />
+            <Route
+              path="/contributor-dashboard"
+              element={<ContributorProfile />}
+            />
+            <Route path="/contribute-model" element={<ContributeToModel />} />
+            <Route
+              path="/previous-contributions"
+              element={<PreviousContributions />}
+            />
+            <Route
+              path="/active-contributions"
+              element={<ActiveContributions />}
+            />
+            <Route path="/signup" element={<Signup />} />
+          </Routes>
+        </div>
       </div>
     </Router>
   );
