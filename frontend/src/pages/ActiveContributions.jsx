@@ -9,6 +9,8 @@ const menuItems = [
   { label: "Previous Contributions", path: "/prev-contributions" },
   { label: "Active Contributions", path: "/ative-contributions" },
 ];
+const profileLink = "/contributor-dashboard";
+
 
 const ActiveContributions = () => {
   // State to control sidebar visibility for mobile
@@ -66,6 +68,7 @@ const ActiveContributions = () => {
         heading="Contributor Dashboard"
         showSidebar={showSidebar}
         setShowSidebar={setShowSidebar}
+        profileLink={profileLink}
       />
 
       {/* Mobile Hamburger Button */}

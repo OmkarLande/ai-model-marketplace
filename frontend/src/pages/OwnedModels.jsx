@@ -12,6 +12,7 @@ const menuItems = [
   { label: "Active Contributors", path: "/active-contributors" },
   { label: "Owned Models", path: "/owned-models" },
 ];
+
 const OwnedModels = () => {
   // Dummy data for owned models (replace with API data later)
   const [models, setModels] = useState([]);
@@ -43,12 +44,16 @@ const OwnedModels = () => {
   // Mobile sidebar toggle
   const [showSidebar, setShowSidebar] = useState(false);
 
+  // Define the profile link for navigation
+  const profileLink = "/model-owner-dashboard"; // Update with the actual profile route
+
   return (
     <div className="flex min-h-screen bg-black text-white">
       {/* Sidebar for all screen sizes */}
       <Sidebar
         menuItems={menuItems}
         heading="Dashboard"
+        profileLink={profileLink} // Pass the profile link
         showSidebar={showSidebar}
         setShowSidebar={setShowSidebar}
       />

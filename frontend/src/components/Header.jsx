@@ -1,24 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png"; // Adjust the path based on where your logo is located
 
 const Header = () => {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false); // State for mobile menu toggle
-
-  // Handle Scroll Effect
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   // Toggle Mobile Menu
   const toggleMenu = () => {
@@ -26,12 +11,8 @@ const Header = () => {
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-gray-900 shadow-lg " : "bg-transparent"
-      }`}
-    >
-      <div className="container mx-auto px-6 lg:px-12 py-0 flex justify-between items-center">
+    <header className="fixed top-0 left-0 w-full bg-transparent z-50">
+      <div className="container mx-auto px-6 lg:px-12 py-4 flex justify-between items-center">
         {/* Logo Section with Image */}
         <Link to="/" className="flex items-center">
           <img
@@ -126,7 +107,7 @@ const Header = () => {
 
       {/* Mobile Menu - Opens on Toggle */}
       <div
-        className={`lg:hidden fixed top-16 left-0 w-full bg-gray-900 shadow-lg overflow-hidden transition-all duration-300 ${
+        className={`lg:hidden fixed top-16 left-0 w-full transition-all duration-300 ${
           menuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
         }`}
       >

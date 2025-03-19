@@ -24,15 +24,20 @@ const CreateModel = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  // Handle input changes for form fields
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  // Handle file input change
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
@@ -62,11 +67,54 @@ const CreateModel = () => {
     }
   };
 
+  // Handle sidebar toggle for mobile
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  // Define the profile link for navigation
+  const profileLink = "/model-owner-dashboard"; // Update with the actual profile route
+
   return (
     <div className="flex min-h-screen bg-black text-white">
-      <Sidebar menuItems={menuItems} heading="Dashboard" />
+      {/* Sidebar for Large Screens */}
+      <div className="hidden lg:block">
+        <Sidebar
+          menuItems={menuItems}
+          heading="Dashboard"
+          profileLink={profileLink} // Pass the profile link
+        />
+      </div>
 
-      <div className="flex-1 ml-64 p-10 bg-gradient-to-br from-gray-950 to-black min-h-screen">
+      {/* Sidebar for Mobile (Slide-In Drawer) */}
+      {isSidebarOpen && (
+        <div className="lg:hidden fixed inset-0 z-50 bg-black/70">
+          <div className="w-64 bg-gray-900 p-6 h-full shadow-lg">
+            <Sidebar
+              menuItems={menuItems}
+              heading="Dashboard"
+              profileLink={profileLink} // Pass the profile link
+            />
+            <button
+              onClick={toggleSidebar}
+              className="text-white mt-4 text-sm underline"
+            >
+              Close Sidebar
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Main Content Section */}
+      <div className="flex-1 lg:ml-64 p-10 bg-gradient-to-br from-gray-950 to-black min-h-screen">
+        {/* Mobile Sidebar Toggle Button */}
+        <button
+          onClick={toggleSidebar}
+          className="lg:hidden fixed top-4 left-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow-lg z-50"
+        >
+          Menu
+        </button>
+
         <div className="w-full max-w-4xl mx-auto mt-12">
           <div className="bg-gray-900/80 border border-gray-700 rounded-2xl shadow-xl p-10 backdrop-blur-md relative">
             <h2 className="text-2xl font-bold text-white text-center mb-6">

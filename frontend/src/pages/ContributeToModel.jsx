@@ -14,7 +14,7 @@ const ContributeToModel = () => {
   const [models, setModels] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const profileLink = "/contributor-dashboard";
   useEffect(() => {
     const getModels = async () => {
       try {
@@ -36,6 +36,7 @@ const ContributeToModel = () => {
         menuItems={menuItems}
         heading="Contributor Dashboard"
         showSidebar={showSidebar}
+        profileLink={profileLink}
         setShowSidebar={setShowSidebar}
       />
 
