@@ -1,8 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 
-
 export const createModel = async (formData) => {
-    console.log(formData);
+    console.log("formData: ", formData);
 
     // Get the token from localStorage
     const token = localStorage.getItem("user_token");
@@ -27,24 +26,25 @@ export const createModel = async (formData) => {
         }
 
         console.log("start");
+
+        // Send the formData directly without modification
         const response = await fetch("http://localhost:5000/api/models/create", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`, // Pass the token in the Authorization header
             },
             credentials: "include", // Ensures cookies are sent with the request
-            body: JSON.stringify(formData), // Only send formData in the body
+            body: formData, // Send the formData directly
         });
 
         console.log("start1");
+
         // Check if the response is JSON before parsing
         const contentType = response.headers.get("content-type");
         if (!contentType || !contentType.includes("application/json")) {
             throw new Error("Unexpected response from server. Ensure backend is running.");
         }
 
-        console.log("11");
         const responseData = await response.json();
         console.log("responseData", responseData);
 

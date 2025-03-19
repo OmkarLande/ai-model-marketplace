@@ -29,7 +29,7 @@ const CreateModel = () => {
   };
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]); // Store the selected file
+    setFile(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
@@ -37,13 +37,20 @@ const CreateModel = () => {
     setError(null);
 
     const formDataToSend = new FormData();
+
+    // Append all form data fields manually
     Object.keys(formData).forEach((key) => {
-      formDataToSend.append(key, formData[key]);
+      if (formData[key]) {
+        formDataToSend.append(key, formData[key]);
+      }
     });
 
+    // Append file if available
     if (file) {
-      formDataToSend.append("model_file", file); // Append the file
+      formDataToSend.append("model_file.py", file);
     }
+
+    console.log("Sending FormData:", formDataToSend);
 
     const result = await createModel(formDataToSend);
     if (result.error) {
