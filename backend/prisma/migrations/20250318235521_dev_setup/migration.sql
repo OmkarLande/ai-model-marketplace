@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "AI_Model" ALTER COLUMN "price" SET DATA TYPE TEXT;

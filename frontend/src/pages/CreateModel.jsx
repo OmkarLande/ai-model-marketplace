@@ -17,6 +17,7 @@ const CreateModel = () => {
     training_data_info: "",
     performance_metrics: "",
     license_type: "",
+    price: "",
   });
 
   const [file, setFile] = useState(null);

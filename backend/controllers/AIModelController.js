@@ -11,7 +11,8 @@ const createModel = async (req, res) => {
     version,
     training_data_info,
     performance_metrics,
-    license_type
+    license_type,
+    price
   } = req.body;
   const token = req.headers.authorization?.split(" ")[1];
 
@@ -38,7 +39,8 @@ const createModel = async (req, res) => {
       !description ||
       !version ||
       !training_data_info ||
-      !performance_metrics
+      !performance_metrics ||
+        !price
     ) {
       return res.status(400).json({ error: "All fields are required" });
     }
@@ -76,6 +78,7 @@ const createModel = async (req, res) => {
         version,
         training_data_info,
         performance_metrics,
+        price,
         ...optionalFields,
       },
     });
