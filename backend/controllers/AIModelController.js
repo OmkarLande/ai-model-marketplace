@@ -126,4 +126,51 @@ const getAIModelById = async (req, res) => {
   }
 };
 
-module.exports = { createModel, getAllAIModels, getAIModelById };
+
+const uploadContribution = async (req, res) => {
+  const { user_id, model_id } = req.body; // Model ID
+  const file = req.file;
+
+  if (!file) {
+    return res.status(400).json({ error: "No file provided" });
+  }
+
+  try {
+    // Upload file to Cloudinary
+    const uploadResponse = await cloudinary.uploader.upload(file.path);
+    const model_file_path = uploadResponse.secure_url;
+
+    console.log("Cloudinary URL:", model_file_path);
+
+    // Create an entry in the Model_Contributor table
+    const contribution = await prisma.model_Contributor.create({
+      data: {
+        file_path: model_file_path,
+        status: "active",
+        user: {
+          connect: {
+            user_id: 12
+          }
+        },
+        ai_model: {
+          connect: {
+            model_id: 1  // Connect to an existing AI_Model by its model_id
+          }
+        }
+      },
+    });
+
+    return res.status(201).json({
+      message: "Contribution uploaded successfully",
+      contribution,
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).json({
+      error: "Failed to upload contribution",
+      details: error.message,
+    });
+  }
+};
+
+module.exports = { createModel, getAllAIModels, getAIModelById, uploadContribution };
